@@ -21,3 +21,6 @@ Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -keyring /Users/gscho
 
 !ENTRY com.android.ide.eclipse.adt 4 0 2012-08-22 14:44:17.982
 !MESSAGE Failed to load properties file for project 'HelloAndroid'
+
+!ENTRY com.android.ide.eclipse.adt 4 0 2012-08-22 21:10:11.698
+!MESSAGE Warning: Ignoring name conflict in resource file for name menu_settings
