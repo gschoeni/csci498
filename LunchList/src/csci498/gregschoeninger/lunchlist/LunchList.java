@@ -1,11 +1,13 @@
 package csci498.gregschoeninger.lunchlist;
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class LunchList extends Activity {
 	
@@ -17,6 +19,7 @@ public class LunchList extends Activity {
         setContentView(R.layout.activity_lunch_list);
         Button save = (Button)findViewById(R.id.save); 
         save.setOnClickListener(onSave);
+        
     }
 
     @Override

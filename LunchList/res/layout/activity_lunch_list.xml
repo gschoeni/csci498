@@ -13,35 +13,45 @@
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    >
-		<TextView
-		      android:layout_width="wrap_content"
-		      android:layout_height="wrap_content"
-		      android:text="Name:"
+		<TextView 
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Name:"
+			android:textSize="16dip" 
+			android:textColor="#2a2a2a"
+			android:textStyle="bold"
+			android:padding="10dp"
 		      />
 	    <EditText android:id="@+id/name"
-	      android:layout_width="match_parent"
-	      android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:inputType="text"
 	      />
 	  </LinearLayout>
 	  <LinearLayout
-	    android:orientation="horizontal"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
 	    >
 		<TextView
-		      android:layout_width="wrap_content"
-		      android:layout_height="wrap_content"
-		      android:text="Address:"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="Address:"
+			android:textSize="16dip" 
+   			android:textColor="#2a2a2a"
+   			android:textStyle="bold"
+   			android:padding="10dp"
 		      />
 	    <EditText android:id="@+id/addr"
-	      android:layout_width="match_parent"
-	      android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:inputType="text"
 	      />
 	  </LinearLayout>
 	  <Button android:id="@+id/save"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:text="Save"
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:text="Save"
 	  />
 	</LinearLayout>
 
