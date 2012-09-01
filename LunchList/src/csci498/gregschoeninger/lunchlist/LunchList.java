@@ -28,6 +28,7 @@ public class LunchList extends Activity {
     private View.OnClickListener onSave = new View.OnClickListener() {
     	
     	public void onClick(View v) {
+    		System.out.println("Clicked");
 	    	EditText name = (EditText)findViewById(R.id.name); 
 	    	EditText address = (EditText)findViewById(R.id.addr);
 	    	r.setName(name.getText().toString());
