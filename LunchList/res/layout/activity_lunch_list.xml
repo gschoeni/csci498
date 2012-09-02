@@ -1,58 +1,37 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:stretchColumns="1"
+  android:shrinkColumns="1"
+  >
+  <TableRow>
+    <TextView android:text="Name:" />
+    <EditText android:id="@+id/name" />
+  </TableRow>
+  <TableRow>
+    <TextView android:text="Address:" />
+    <EditText android:id="@+id/addr" />
+  </TableRow>
+  <TableRow>
+    <TextView android:text="Type:" />
+    <RadioGroup android:id="@+id/types">
+      <RadioButton android:id="@+id/take_out"
+        android:text="Take-Out"
+        android:checked="true"
+      />
+      <RadioButton android:id="@+id/sit_down"
+        android:text="Sit-Down"
+      />
+      <RadioButton android:id="@+id/delivery"
+        android:text="Delivery"
+      />
+    </RadioGroup>
+  </TableRow>
+  
+  <Button android:id="@+id/save"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	  android:orientation="vertical"
-	  android:layout_width="match_parent"
-	  android:layout_height="match_parent"
-	  >
-	  <LinearLayout
-	    android:orientation="horizontal"
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    >
-		<TextView 
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="Name:"
-			android:textSize="16dip" 
-			android:textColor="#2a2a2a"
-			android:textStyle="bold"
-			android:padding="10dp"
-		      />
-	    <EditText android:id="@+id/name"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:inputType="text"
-	      />
-	  </LinearLayout>
-	  <LinearLayout
-		android:orientation="horizontal"
-		android:layout_width="match_parent"
-		android:layout_height="wrap_content"
-	    >
-		<TextView
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="Address:"
-			android:textSize="16dip" 
-   			android:textColor="#2a2a2a"
-   			android:textStyle="bold"
-   			android:padding="10dp"
-		      />
-	    <EditText android:id="@+id/addr"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:inputType="text"
-	      />
-	  </LinearLayout>
-	  <Button android:id="@+id/save"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:text="Save"
-	  />
-	</LinearLayout>
-
-</RelativeLayout>
+    android:layout_height="wrap_content"
+    android:text="Save"
+  />
+</TableLayout>
