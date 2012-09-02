@@ -1,27 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  android:stretchColumns="1"
-  android:shrinkColumns="1"
-  >
-  <TableRow>
-    <TextView android:text="Name:" />
-    <EditText android:id="@+id/name" />
-  </TableRow>
-  <TableRow>
-    <TextView android:text="Address:" />
-    <EditText android:id="@+id/addr" />
-  </TableRow>
-  <TableRow>
-    <TextView android:text="Type:" />
-    <RadioGroup android:id="@+id/types">
-    </RadioGroup>
-  </TableRow>
-  
-  <Button android:id="@+id/save"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="Save"
-  />
-</TableLayout>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+	<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	  android:layout_width="match_parent"
+	  android:layout_height="match_parent"
+	  android:stretchColumns="1"
+	  android:shrinkColumns="1"
+	  >
+	  <TableRow>
+	    <TextView android:text="Name:" />
+	    <EditText android:id="@+id/name" />
+	  </TableRow>
+	  <TableRow>
+	    <TextView android:text="Address:" />
+	    <EditText android:id="@+id/addr" />
+	  </TableRow>
+	  <TableRow>
+	    <TextView android:text="Type:" />
+	    <RadioGroup android:id="@+id/types">
+	      <RadioButton android:id="@+id/chinese"
+	        android:text="Chinese"
+	      />
+	      <RadioButton android:id="@+id/indian"
+	        android:text="Indian"
+	      />
+	      <RadioButton android:id="@+id/italian"
+	        android:text="Italian"
+	      />
+	      <RadioButton android:id="@+id/med"
+	        android:text="Mediterranean"
+	      />
+	      <RadioButton android:id="@+id/vietnemese"
+	        android:text="Vietnemese"
+	      />
+	      <RadioButton android:id="@+id/american"
+	        android:text="American"
+	      />
+	      <RadioButton android:id="@+id/mexican"
+	        android:text="Mexican"
+	      />
+	      <RadioButton android:id="@+id/tex_mex"
+	        android:text="Tex-Mex"
+	      />
+	      <RadioButton android:id="@+id/australian"
+	        android:text="Austrailian"
+	      />
+	      
+	    </RadioGroup>
+	  </TableRow>
+	  
+	  <Button android:id="@+id/save"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:text="Save"
+	  />
+	</TableLayout>
+</ScrollView>

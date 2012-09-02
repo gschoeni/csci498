@@ -2,4 +2,6 @@
 	<item type="id" name="sit_down" />
 	<item type="id" name="take_out" />
 	<item type="id" name="delivery" />
+	<item type="id" name="buffet" />
+	<item type="id" name="fast_food" />
 </resources>

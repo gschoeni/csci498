@@ -1,9 +1,11 @@
 <resources>
 
     <string name="app_name">LunchList</string>
-    <string name="sit_down_type">Sit Down</string>
-    <string name="takeout_type">Takeout</string>
-    <string name="delivery_type">Delivery</string>
+    <string name="sit_down">Sit Down</string>
+    <string name="take_out">Takeout</string>
+    <string name="delivery">Delivery</string>
+    <string name="buffet">Buffet</string>
+    <string name="fast_food">Fast Food</string>
     
     <string name="menu_settings">Settings</string>
     <string name="title_activity_lunch_list">LunchList</string>

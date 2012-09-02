@@ -36,19 +36,29 @@ public class LunchList extends Activity {
     	types = (RadioGroup)findViewById(R.id.types);
         
         RadioButton sit_down = new RadioButton(this);
-        sit_down.setText(R.string.sit_down_type);
+        sit_down.setText(R.string.sit_down);
         sit_down.setId(R.id.sit_down);
         types.addView(sit_down);
         
         RadioButton takeout = new RadioButton(this);
-        takeout.setText(R.string.takeout_type);
+        takeout.setText(R.string.take_out);
         takeout.setId(R.id.take_out);
         types.addView(takeout);
         
         RadioButton delivery = new RadioButton(this);
-        delivery.setText(R.string.delivery_type);
+        delivery.setText(R.string.delivery);
         delivery.setId(R.id.delivery);
         types.addView(delivery);
+        
+        RadioButton buffet = new RadioButton(this);
+        buffet.setText(R.string.buffet);
+        buffet.setId(R.id.buffet);
+        types.addView(buffet);
+        
+        RadioButton fast_food = new RadioButton(this);
+        fast_food.setText(R.string.fast_food);
+        fast_food.setId(R.id.fast_food);
+        types.addView(fast_food);
         
         types.check(delivery.getId());
     }
