@@ -1,0 +1,5 @@
+<resources>
+	<item type="id" name="sit_down" />
+	<item type="id" name="take_out" />
+	<item type="id" name="delivery" />
+</resources>
