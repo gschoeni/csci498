@@ -6,8 +6,12 @@ public class Restaurant {
 	private String address = "";
 	private String type = "";
 	
+	public String toString(){
+		return getName();
+	}
+	
 	public String getName() { 
-		return(name);
+		return name;
 	}
 	
 	public void setName(String name) { 
@@ -15,7 +19,7 @@ public class Restaurant {
 	}
 	
 	public String getAddress() { 
-		return(address);
+		return address;
 	}
 	
 	public void setAddress(String address) { 
