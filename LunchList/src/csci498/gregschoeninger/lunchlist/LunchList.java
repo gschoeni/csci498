@@ -7,13 +7,16 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.RadioGroup;
 
 public class LunchList extends Activity {
 	
 	private List<Restaurant> restaurants = new ArrayList<Restaurant>();
+	private ArrayAdapter<Restaurant> adapter = null;
 	private RadioGroup types;
 	
     @Override
@@ -25,6 +28,10 @@ public class LunchList extends Activity {
         
         Button save = (Button)findViewById(R.id.save); 
         save.setOnClickListener(onSave);
+        
+        ListView list = (ListView)findViewById(R.id.restaurants);
+        adapter = new ArrayAdapter<Restaurant>(this, android.R.layout.simple_list_item_1, restaurants); 
+        list.setAdapter(adapter);
     }
 
     @Override
@@ -41,25 +48,26 @@ public class LunchList extends Activity {
     		
 	    	EditText name = (EditText)findViewById(R.id.name); 
 	    	EditText address = (EditText)findViewById(R.id.addr);
+	    	
 	    	restaurant.setName(name.getText().toString());
 	    	restaurant.setAddress(address.getText().toString()); 
+	    	setRestaurantType(types, restaurant);
 	    	
-	    	setRestaurantType(types);
+	    	adapter.add(restaurant);
 	    }
     	
-    	public void setRestaurantType(RadioGroup types){
+    	public void setRestaurantType(RadioGroup types, Restaurant r){
     		switch(types.getCheckedRadioButtonId()){
 		    	case R.id.delivery:
-		    		//restaurants.get(0).setType("delivery");
+		    		r.setType("delivery");
 		    		break;
 		    	case R.id.sit_down:
-		    		//restaurants.get(0).setType("sit_down");
+		    		r.setType("sit_down");
 		    		break;
 		    	case R.id.take_out:
-		    		//restaurants.get(0).setType("take_out");
+		    		r.setType("take_out");
 		    		break;
 	    	}
-    		
     	}
 	    	
     	
