@@ -38,10 +38,10 @@
 	  />
 	</TableLayout>
 	
-	<ListView android:id="@+id/restaurants"
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:layout_alignParentTop="true"
-		    android:layout_above="@id/details"/>
+	<Spinner
+	    android:id="@+id/restaurants"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentTop="true" />
 	
 </RelativeLayout>
