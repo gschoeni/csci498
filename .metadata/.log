@@ -595,3 +595,9 @@ Command-line arguments:  -os macosx -ws cocoa -arch x86_64 -keyring /Users/gscho
 
 !ENTRY com.android.ide.eclipse.adt 2 0 2012-09-02 19:27:03.269
 !MESSAGE activity_lunch_list.xml: Couldn't resolve resource @string/app_name
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2012-09-02 20:21:12.577
+!MESSAGE row.xml: Couldn't resolve resource @string/app_name
+
+!ENTRY com.android.ide.eclipse.adt 2 0 2012-09-02 20:21:12.950
+!MESSAGE row.xml: Couldn't resolve resource @string/app_name

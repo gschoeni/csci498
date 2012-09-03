@@ -5,15 +5,18 @@ import java.util.List;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.text.Editable;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
+import android.widget.TextView;
 
 public class LunchList extends Activity {
 	
@@ -31,8 +34,8 @@ public class LunchList extends Activity {
         Button save = (Button)findViewById(R.id.save); 
         save.setOnClickListener(onSave);
         
-        Spinner list = (Spinner)findViewById(R.id.restaurants);
-        restaurantsAdapter = new ArrayAdapter<Restaurant>(this, android.R.layout.simple_list_item_1, restaurants); 
+        ListView list = (ListView)findViewById(R.id.restaurants);
+        restaurantsAdapter = new RestaurantAdapter(); 
         list.setAdapter(restaurantsAdapter);
         
         String addresses[] = { "Golden", "Boulder", "Denver", "Arvada", "Colorado"};
@@ -46,12 +49,54 @@ public class LunchList extends Activity {
         getMenuInflater().inflate(R.menu.activity_lunch_list, menu);
         return true;
     }
-
-    class RestaurantAdapter extends ArrayAdapter<Restaurant> { RestaurantAdapter() {
-        super(LunchList.this,
-              android.R.layout.simple_list_item_1,
-              restaurants);
-    } }
+    
+    static class RestaurantHolder {
+    	  private TextView name;
+    	  private TextView address;
+    	  private ImageView icon;
+    	  
+    	  RestaurantHolder(View row) { 
+    		  name = (TextView)row.findViewById(R.id.title); 
+    		  address = (TextView)row.findViewById(R.id.address); 
+    		  icon = (ImageView)row.findViewById(R.id.icon);
+    	  }
+    	  
+    	  void populateFrom(Restaurant r) { 
+    		  name.setText(r.getName()); 
+    		  address.setText(r.getAddress());
+    		  
+    		  if (r.getType().equals("sit_down")) {
+    			  icon.setImageResource(R.drawable.ball_red); 
+    		  } else if (r.getType().equals("take_out")) { 
+    			  icon.setImageResource(R.drawable.ball_yellow);
+    		  } else {
+    			  icon.setImageResource(R.drawable.ball_green); 
+    		  }
+    	  }
+    	  
+    }
+    
+    class RestaurantAdapter extends ArrayAdapter<Restaurant> { 
+    	RestaurantAdapter() {
+    		super(LunchList.this, android.R.layout.simple_list_item_1, restaurants);
+    	} 
+    	
+    	public View getView(int position, View convertView, ViewGroup parent){
+    		View row = convertView;
+    		RestaurantHolder holder;
+    		if (row == null) {
+    			LayoutInflater inflater = getLayoutInflater();
+    			row = inflater.inflate(R.layout.row, parent, false); 
+    			holder = new RestaurantHolder(row); 
+    			row.setTag(holder);
+    		} else {
+    			holder = (RestaurantHolder)row.getTag(); 
+    		}
+    		
+    		holder.populateFrom(restaurants.get(position)); 
+    		return row;
+    	}
+    }
 
     private View.OnClickListener onSave = new View.OnClickListener() {
     	
