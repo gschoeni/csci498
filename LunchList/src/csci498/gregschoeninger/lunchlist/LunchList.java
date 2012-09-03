@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -50,10 +51,11 @@ public class LunchList extends Activity {
         return true;
     }
     
-    static class RestaurantHolder {
-    	  private TextView name;
-    	  private TextView address;
-    	  private ImageView icon;
+    
+    private static class RestaurantHolder {
+    	  protected TextView name;
+    	  protected TextView address;
+    	  protected ImageView icon;
     	  
     	  RestaurantHolder(View row) { 
     		  name = (TextView)row.findViewById(R.id.title); 
@@ -61,22 +63,56 @@ public class LunchList extends Activity {
     		  icon = (ImageView)row.findViewById(R.id.icon);
     	  }
     	  
-    	  void populateFrom(Restaurant r) { 
-    		  name.setText(r.getName()); 
-    		  address.setText(r.getAddress());
-    		  
-    		  if (r.getType().equals("sit_down")) {
-    			  icon.setImageResource(R.drawable.ball_red); 
-    		  } else if (r.getType().equals("take_out")) { 
-    			  icon.setImageResource(R.drawable.ball_yellow);
-    		  } else {
-    			  icon.setImageResource(R.drawable.ball_green); 
-    		  }
+    	  void populateBasicData(Restaurant r){
+    		name.setText(r.getName());
+      		address.setText(r.getAddress());
     	  }
     	  
+    	  void populateFrom(Restaurant r){}
     }
     
-    class RestaurantAdapter extends ArrayAdapter<Restaurant> { 
+    private static class TakeOutHolder extends RestaurantHolder {
+    	TakeOutHolder(View row){
+    		super(row);
+    	}
+    	
+    	void populateFrom(Restaurant r) { 
+    		super.populateBasicData(r);
+    		name.setTextColor(Color.DKGRAY);
+    		icon.setImageResource(R.drawable.ball_yellow);
+    	}
+    }
+    
+    private static class SitDownHolder extends RestaurantHolder {
+    	SitDownHolder(View row){
+    		super(row);
+    	}
+    	
+    	void populateFrom(Restaurant r) { 
+    		super.populateBasicData(r);
+		  	name.setTextColor(Color.RED);
+	  		icon.setImageResource(R.drawable.ball_red);
+	  	}
+    }
+    
+    private static class DeliveryHolder extends RestaurantHolder {
+    	DeliveryHolder(View row){
+    		super(row);
+    	}
+    	
+    	void populateFrom(Restaurant r) { 
+    		super.populateBasicData(r);
+	  		name.setTextColor(Color.GREEN);
+	  		icon.setImageResource(R.drawable.ball_green);
+	  	}
+    }
+    
+    private class RestaurantAdapter extends ArrayAdapter<Restaurant> {
+    	
+    	private static final int DELIVERY_TYPE = 0;
+    	private static final int SIT_DOWN_TYPE = 1;
+    	private static final int TAKEOUT_TYPE = 2;
+    	
     	RestaurantAdapter() {
     		super(LunchList.this, android.R.layout.simple_list_item_1, restaurants);
     	} 
@@ -87,7 +123,22 @@ public class LunchList extends Activity {
     		if (row == null) {
     			LayoutInflater inflater = getLayoutInflater();
     			row = inflater.inflate(R.layout.row, parent, false); 
-    			holder = new RestaurantHolder(row); 
+    			int type = getItemViewType(position);
+    			switch(type){
+	    			case DELIVERY_TYPE:
+	    				holder = new DeliveryHolder(row); 
+	    				break;
+	    			case SIT_DOWN_TYPE:
+	    				holder = new SitDownHolder(row); 
+	    				break;
+	    			case TAKEOUT_TYPE:
+	    				holder = new TakeOutHolder(row); 
+	    				break;
+	    			default:
+	    				holder = new TakeOutHolder(row);
+	    				break;
+    			}
+    			
     			row.setTag(holder);
     		} else {
     			holder = (RestaurantHolder)row.getTag(); 
@@ -96,6 +147,24 @@ public class LunchList extends Activity {
     		holder.populateFrom(restaurants.get(position)); 
     		return row;
     	}
+    	
+    	@Override
+        public int getItemViewType(int position) {
+    		Restaurant r = restaurants.get(position);
+    		if(r.getType().equals("sit_down")){
+    			return SIT_DOWN_TYPE;
+    		} else if(r.getType().equals("delivery")){
+    			return DELIVERY_TYPE;
+    		} else {
+    			return TAKEOUT_TYPE;
+    		}
+        }
+ 
+        @Override
+        public int getViewTypeCount() {
+            return 3;
+        }
+    	
     }
 
     private View.OnClickListener onSave = new View.OnClickListener() {
