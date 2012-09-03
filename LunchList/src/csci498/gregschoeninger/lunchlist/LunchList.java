@@ -47,6 +47,11 @@ public class LunchList extends Activity {
         return true;
     }
 
+    class RestaurantAdapter extends ArrayAdapter<Restaurant> { RestaurantAdapter() {
+        super(LunchList.this,
+              android.R.layout.simple_list_item_1,
+              restaurants);
+    } }
 
     private View.OnClickListener onSave = new View.OnClickListener() {
     	
