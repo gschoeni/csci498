@@ -5,9 +5,11 @@ import java.util.List;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.Editable;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
@@ -16,7 +18,7 @@ import android.widget.Spinner;
 public class LunchList extends Activity {
 	
 	private List<Restaurant> restaurants = new ArrayList<Restaurant>();
-	private ArrayAdapter<Restaurant> adapter = null;
+	private ArrayAdapter<Restaurant> restaurantsAdapter = null;
 	private RadioGroup types;
 	
     @Override
@@ -30,8 +32,13 @@ public class LunchList extends Activity {
         save.setOnClickListener(onSave);
         
         Spinner list = (Spinner)findViewById(R.id.restaurants);
-        adapter = new ArrayAdapter<Restaurant>(this, android.R.layout.simple_list_item_1, restaurants); 
-        list.setAdapter(adapter);
+        restaurantsAdapter = new ArrayAdapter<Restaurant>(this, android.R.layout.simple_list_item_1, restaurants); 
+        list.setAdapter(restaurantsAdapter);
+        
+        String addresses[] = { "Golden", "Boulder", "Denver", "Arvada", "Colorado"};
+        
+        AutoCompleteTextView address = (AutoCompleteTextView)findViewById(R.id.address);
+        address.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, addresses));
     }
 
     @Override
@@ -40,20 +47,20 @@ public class LunchList extends Activity {
         return true;
     }
 
-    
+
     private View.OnClickListener onSave = new View.OnClickListener() {
     	
     	public void onClick(View v) {
     		Restaurant restaurant = new Restaurant();
     		
 	    	EditText name = (EditText)findViewById(R.id.name); 
-	    	EditText address = (EditText)findViewById(R.id.addr);
+	    	EditText address = (EditText)findViewById(R.id.address);
 	    	
 	    	restaurant.setName(name.getText().toString());
 	    	restaurant.setAddress(address.getText().toString()); 
 	    	setRestaurantType(types, restaurant);
 	    	
-	    	adapter.add(restaurant);
+	    	restaurantsAdapter.add(restaurant);
 	    }
     	
     	public void setRestaurantType(RadioGroup types, Restaurant r){
