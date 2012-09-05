@@ -27,6 +27,8 @@ public class LunchList extends TabActivity {
 	private List<Restaurant> restaurants = new ArrayList<Restaurant>();
 	private ArrayAdapter<Restaurant> restaurantsAdapter = null;
 	private RadioGroup types;
+	private EditText name = null;
+	private AutoCompleteTextView address = null;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,6 +36,8 @@ public class LunchList extends TabActivity {
         setContentView(R.layout.activity_lunch_list);
         
         types = (RadioGroup) findViewById(R.id.types);
+        name = (EditText) findViewById(R.id.name); 
+        address = (AutoCompleteTextView) findViewById(R.id.address);
         
         Button save = (Button)findViewById(R.id.save); 
         save.setOnClickListener(onSave);
@@ -45,7 +49,7 @@ public class LunchList extends TabActivity {
         
         String addresses[] = { "Golden", "Boulder", "Denver", "Arvada", "Colorado"};
         
-        AutoCompleteTextView address = (AutoCompleteTextView)findViewById(R.id.address);
+        address = (AutoCompleteTextView)findViewById(R.id.address);
         address.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, addresses));
         
         
@@ -187,9 +191,6 @@ public class LunchList extends TabActivity {
     	public void onClick(View v) {
     		Restaurant restaurant = new Restaurant();
     		
-	    	EditText name = (EditText)findViewById(R.id.name); 
-	    	AutoCompleteTextView address = (AutoCompleteTextView)findViewById(R.id.address);
-	    	
 	    	restaurant.setName(name.getText().toString());
 	    	restaurant.setAddress(address.getText().toString()); 
 	    	setRestaurantType(types, restaurant);
@@ -216,7 +217,18 @@ public class LunchList extends TabActivity {
     
     private OnItemClickListener onListClick = new AdapterView.OnItemClickListener() {
     	public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+    		Restaurant r = restaurants.get(position);
+    		name.setText(r.getName());
+    		address.setText(r.getAddress());
     		
+    		if(r.getType().equals("sit_down")){
+    			types.check(R.id.sit_down);
+    		} else if (r.getType().equals("take_out")){
+    			types.check(R.id.take_out);
+    		} else {
+    			types.check(R.id.delivery);
+    		}
+    			
     	}
 	};
 }
