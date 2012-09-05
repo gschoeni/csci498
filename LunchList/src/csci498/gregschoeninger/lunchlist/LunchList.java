@@ -196,6 +196,7 @@ public class LunchList extends TabActivity {
 	    	setRestaurantType(types, restaurant);
 	    	
 	    	restaurantsAdapter.add(restaurant);
+	    	getTabHost().setCurrentTab(0);
 	    }
     	
     	public void setRestaurantType(RadioGroup types, Restaurant r){
@@ -228,7 +229,7 @@ public class LunchList extends TabActivity {
     		} else {
     			types.check(R.id.delivery);
     		}
-    			
+    		getTabHost().setCurrentTab(1);
     	}
 	};
 }
