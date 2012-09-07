@@ -24,15 +24,16 @@ public final class R {
         public static final int date=0x7f040008;
         public static final int delivery=0x7f040000;
         public static final int details=0x7f040002;
-        public static final int icon=0x7f04000a;
-        public static final int menu_settings=0x7f04000c;
+        public static final int icon=0x7f04000b;
+        public static final int menu_settings=0x7f04000d;
         public static final int name=0x7f040003;
-        public static final int restaurants=0x7f040001;
+        public static final int restaurants=0x7f04000a;
         public static final int save=0x7f040009;
         public static final int sit_down=0x7f040007;
         public static final int take_out=0x7f040006;
-        public static final int title=0x7f04000b;
+        public static final int title=0x7f04000c;
         public static final int types=0x7f040005;
+        public static final int viewflipper=0x7f040001;
     }
     public static final class layout {
         public static final int activity_lunch_list=0x7f030000;
