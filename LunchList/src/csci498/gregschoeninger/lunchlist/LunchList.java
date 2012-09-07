@@ -1,11 +1,15 @@
 package csci498.gregschoeninger.lunchlist;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.TabActivity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -15,12 +19,15 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.DatePicker.OnDateChangedListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class LunchList extends TabActivity {
 	
@@ -29,6 +36,8 @@ public class LunchList extends TabActivity {
 	private RadioGroup types;
 	private EditText name = null;
 	private AutoCompleteTextView address = null;
+	private DatePicker datePicker;
+	private TextView date;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -61,6 +70,10 @@ public class LunchList extends TabActivity {
         spec.setContent(R.id.details); spec.setIndicator("Details", getResources().getDrawable(R.drawable.restaurant));
         getTabHost().addTab(spec);
         getTabHost().setCurrentTab(0);
+        
+        date = (TextView)findViewById(R.id.date);
+        date.setOnClickListener(dateOnClick);
+        datePicker = new DatePicker(this);
         
     }
 
@@ -192,8 +205,9 @@ public class LunchList extends TabActivity {
     		Restaurant restaurant = new Restaurant();
     		
 	    	restaurant.setName(name.getText().toString());
-	    	restaurant.setAddress(address.getText().toString()); 
+	    	restaurant.setAddress(address.getText().toString());
 	    	setRestaurantType(types, restaurant);
+	    	restaurant.setDate(date.getText().toString());
 	    	
 	    	restaurantsAdapter.add(restaurant);
 	    	getTabHost().setCurrentTab(0);
@@ -216,11 +230,20 @@ public class LunchList extends TabActivity {
     	
     };
     
-    private OnItemClickListener onListClick = new AdapterView.OnItemClickListener() {
+    private View.OnClickListener dateOnClick = new View.OnClickListener() {
+		public void onClick(View v) {
+    		Log.d("Clicked!!!!!", "poop");
+    		showDialog(0);
+    	
+    	}
+	};
+	
+	 private OnItemClickListener onListClick = new AdapterView.OnItemClickListener() {
     	public void onItemClick(AdapterView<?> parent, View view, int position, long id){
     		Restaurant r = restaurants.get(position);
     		name.setText(r.getName());
     		address.setText(r.getAddress());
+    		date.setText(r.getDate());
     		
     		if(r.getType().equals("sit_down")){
     			types.check(R.id.sit_down);
@@ -232,4 +255,25 @@ public class LunchList extends TabActivity {
     		getTabHost().setCurrentTab(1);
     	}
 	};
+	
+	// Creating dialog for date
+	@Override
+	protected Dialog onCreateDialog(int id) {
+		Calendar c = Calendar.getInstance();
+		int cyear = c.get(Calendar.YEAR);
+		int cmonth = c.get(Calendar.MONTH);
+		int cday = c.get(Calendar.DAY_OF_MONTH);
+		switch (id) {
+			case 0:
+				return new DatePickerDialog(this,  mDateSetListener,  cyear, cmonth, cday);
+		}
+		return null;
+	}
+	private DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+		// onDateSet method
+		public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+			date.setText("Date: "+dayOfMonth+"/"+monthOfYear+"/"+year);
+		}
+	};
+	
 }

@@ -5,6 +5,7 @@ public class Restaurant {
 	private String name = "";
 	private String address = "";
 	private String type = "";
+	private String date = "";
 	
 	public String toString(){
 		return getName();
@@ -32,5 +33,13 @@ public class Restaurant {
 	
 	public void setType(String type){
 		this.type = type;
+	}
+	
+	public String getDate(){
+		return date;
+	}
+	
+	public void setDate(String date){
+		this.date = date;
 	}
 }

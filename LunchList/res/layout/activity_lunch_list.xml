@@ -48,6 +48,11 @@
 		    </RadioGroup>
 		  </TableRow>
 		  
+		  <TableRow>
+		    <TextView android:id="@+id/date" 
+		        android:text="@string/date_label"/>
+		  </TableRow>
+		  
 		  <Button android:id="@+id/save"
 		    android:layout_width="match_parent"
 		    android:layout_height="wrap_content"
