@@ -29,6 +29,7 @@ public class LunchList extends TabActivity {
 	private RadioGroup types;
 	private EditText name = null;
 	private AutoCompleteTextView address = null;
+	private EditText notes = null;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,7 @@ public class LunchList extends TabActivity {
         types = (RadioGroup) findViewById(R.id.types);
         name = (EditText) findViewById(R.id.name); 
         address = (AutoCompleteTextView) findViewById(R.id.address);
+        notes = (EditText) findViewById(R.id.notes); 
         
         Button save = (Button)findViewById(R.id.save); 
         save.setOnClickListener(onSave);
@@ -194,6 +196,7 @@ public class LunchList extends TabActivity {
 	    	restaurant.setName(name.getText().toString());
 	    	restaurant.setAddress(address.getText().toString()); 
 	    	setRestaurantType(types, restaurant);
+	    	restaurant.setNotes(notes.getText().toString()); 
 	    	
 	    	restaurantsAdapter.add(restaurant);
 	    	getTabHost().setCurrentTab(0);
@@ -221,6 +224,7 @@ public class LunchList extends TabActivity {
     		Restaurant r = restaurants.get(position);
     		name.setText(r.getName());
     		address.setText(r.getAddress());
+    		notes.setText(r.getNotes());
     		
     		if(r.getType().equals("sit_down")){
     			types.check(R.id.sit_down);
