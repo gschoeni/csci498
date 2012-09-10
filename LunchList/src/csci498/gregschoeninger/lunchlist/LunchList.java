@@ -3,7 +3,9 @@ package csci498.gregschoeninger.lunchlist;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.AlertDialog;
 import android.app.TabActivity;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -248,8 +250,41 @@ public class LunchList extends TabActivity {
 			if (current != null) { 
 				message = current.getNotes();
 			}
-			Toast.makeText(this, message, Toast.LENGTH_LONG).show(); 
+			//Toast.makeText(this, message, Toast.LENGTH_LONG).show(); 
+			
+			
+			AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+	 
+			// set title
+			alertDialogBuilder.setTitle("Your Title");
+	 
+			// set dialog message
+			alertDialogBuilder
+				.setMessage(message)
+				.setCancelable(false)
+				.setPositiveButton("Okay",new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,int id) {
+						// if this button is clicked, close
+						// current activity
+						//LunchList.this.finish();
+						dialog.cancel();
+					}
+				  });
+ 
+				// create alert dialog
+				AlertDialog alertDialog = alertDialogBuilder.create();
+ 
+				// show it
+				alertDialog.show();
+			
 			return true;
+		} else if (item.getItemId() == R.id.switch_tabs){
+			if(getTabHost().getCurrentTab() == 0){
+				 getTabHost().setCurrentTab(1);
+			} else if(getTabHost().getCurrentTab() == 1) {
+				getTabHost().setCurrentTab(0);
+			}
+				
 		}
 		return super.onOptionsItemSelected(item); 
 	}

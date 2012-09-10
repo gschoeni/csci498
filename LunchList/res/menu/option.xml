@@ -3,4 +3,6 @@
   <item android:id="@+id/toast"
     android:title="Raise Toast"
     android:icon="@drawable/toast"/>
+  <item android:id="@+id/switch_tabs"
+    android:title="Switch Tabs"/>
 </menu>

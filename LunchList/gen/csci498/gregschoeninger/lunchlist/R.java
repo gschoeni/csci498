@@ -31,6 +31,7 @@ public final class R {
         public static final int restaurants=0x7f040001;
         public static final int save=0x7f040009;
         public static final int sit_down=0x7f040007;
+        public static final int switch_tabs=0x7f04000e;
         public static final int take_out=0x7f040006;
         public static final int title=0x7f04000b;
         public static final int toast=0x7f04000d;
