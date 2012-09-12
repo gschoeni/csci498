@@ -6,12 +6,14 @@ import java.util.List;
 import android.app.TabActivity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -28,16 +30,17 @@ import android.widget.Toast;
 public class LunchList extends TabActivity {
 	
 	private List<Restaurant> restaurants = new ArrayList<Restaurant>();
-	private ArrayAdapter<Restaurant> restaurantsAdapter = null;
+	private ArrayAdapter<Restaurant> restaurantsAdapter;
 	private RadioGroup types;
-	private EditText name = null;
-	private AutoCompleteTextView address = null;
-	private EditText notes = null;
-	private Restaurant current = null;
+	private EditText name;
+	private AutoCompleteTextView address;
+	private EditText notes;
+	private Restaurant current;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_PROGRESS);
         setContentView(R.layout.activity_lunch_list);
         
         types = (RadioGroup) findViewById(R.id.types);
@@ -60,11 +63,13 @@ public class LunchList extends TabActivity {
         
         
         TabHost.TabSpec spec = getTabHost().newTabSpec("tag1");
-        spec.setContent(R.id.restaurants); spec.setIndicator("List", getResources().getDrawable(R.drawable.list));
+        spec.setContent(R.id.restaurants); 
+        spec.setIndicator("List", getResources().getDrawable(R.drawable.list));
         
         getTabHost().addTab(spec);
         spec = getTabHost().newTabSpec("tag2"); 
-        spec.setContent(R.id.details); spec.setIndicator("Details", getResources().getDrawable(R.drawable.restaurant));
+        spec.setContent(R.id.details); 
+        spec.setIndicator("Details", getResources().getDrawable(R.drawable.restaurant));
         getTabHost().addTab(spec);
         getTabHost().setCurrentTab(0);
         
@@ -75,6 +80,17 @@ public class LunchList extends TabActivity {
     	new MenuInflater(this).inflate(R.menu.option, menu); 
 		return(super.onCreateOptionsMenu(menu));
     }
+    
+    private void doSomeLongWork(){
+    	SystemClock.sleep(250);
+    }
+    
+    private Runnable longTask = new Runnable(){
+    	public void run(){
+    		for(int i = 0; i < 20; i++)
+    			doSomeLongWork();
+    	}
+    };
     
     
     private static class RestaurantHolder {
