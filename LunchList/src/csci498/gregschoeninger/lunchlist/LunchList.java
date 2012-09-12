@@ -3,7 +3,9 @@ package csci498.gregschoeninger.lunchlist;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.AlertDialog;
 import android.app.TabActivity;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -37,9 +39,11 @@ public class LunchList extends TabActivity {
 	private EditText notes;
 	private Restaurant current;
 	private int progress;
+	private AlertDialog alertDialog;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
+    	
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_PROGRESS);
         setContentView(R.layout.activity_lunch_list);
@@ -73,7 +77,7 @@ public class LunchList extends TabActivity {
         spec.setIndicator("Details", getResources().getDrawable(R.drawable.restaurant));
         getTabHost().addTab(spec);
         getTabHost().setCurrentTab(0);
-        
+        alertDialog = new AlertDialog.Builder(this).create();
     }
 
     @Override
@@ -282,6 +286,15 @@ public class LunchList extends TabActivity {
     		runOnUiThread(new Runnable(){
     			public void run(){
     				setProgressBarVisibility(false);
+    				
+    				alertDialog.setTitle("Woot!");
+    				alertDialog.setMessage("Long Process Finished.");
+    				alertDialog.setButton("Ok", new DialogInterface.OnClickListener() {
+					   public void onClick(DialogInterface dialog, int which) {
+						      // do nothing
+						   }
+						});
+    				alertDialog.show();
     			}
     		});
     	}
