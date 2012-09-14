@@ -2,6 +2,7 @@ package csci498.gregschoeninger.lunchlist;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import android.app.TabActivity;
 import android.graphics.Color;
@@ -37,6 +38,7 @@ public class LunchList extends TabActivity {
 	private EditText notes;
 	private Restaurant current;
 	private int progress;
+	private AtomicBoolean isActive;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,6 +68,8 @@ public class LunchList extends TabActivity {
         TabHost.TabSpec spec = getTabHost().newTabSpec("tag1");
         spec.setContent(R.id.restaurants); 
         spec.setIndicator("List", getResources().getDrawable(R.drawable.list));
+        
+        isActive = new AtomicBoolean(true);
         
         getTabHost().addTab(spec);
         spec = getTabHost().newTabSpec("tag2"); 
@@ -257,9 +261,7 @@ public class LunchList extends TabActivity {
 			Toast.makeText(this, message, Toast.LENGTH_LONG).show(); 
 			return true;
 		} else if(item.getItemId() == R.id.run){
-			setProgressBarVisibility(true);
-			progress = 0;
-			new Thread(longTask).start();
+			startWork();
 			return true;
 		}
 		return super.onOptionsItemSelected(item); 
@@ -277,15 +279,60 @@ public class LunchList extends TabActivity {
     
     private Runnable longTask = new Runnable(){
     	public void run(){
-    		for(int i = 0; i < 20; i++)
-    			doSomeLongWork(500);
-    		runOnUiThread(new Runnable(){
-    			public void run(){
-    				setProgressBarVisibility(false);
-    			}
-    		});
+    		for(int i = progress; i < 10000 && isActive.get(); i += 200)
+    			doSomeLongWork(200);
+    		
+    		if(isActive.get()){
+    			runOnUiThread(new Runnable(){
+        			public void run(){
+        				setProgressBarVisibility(false);
+        				progress = 0;
+        			}
+        		});
+    		}
     	}
     };
+    
+    @Override
+    protected void onSaveInstanceState(Bundle savedInstanceState){
+    	super.onSaveInstanceState(savedInstanceState);
+    	savedInstanceState.putInt("progress", progress);
+    	
+    	
+    }
+    
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+    	super.onRestoreInstanceState(savedInstanceState);
+    	int savedProgress = savedInstanceState.getInt("progress");
+    	progress = savedProgress;
+      	isActive.set(true);
+	  	if(progress > 0){
+	  		startWork();
+	  	}
+    }
+    
+    @Override
+    public void onPause(){
+    	super.onPause();
+    	
+    	isActive.set(false);
+    }
+    
+    @Override 
+    public void onResume(){
+    	super.onResume();
+    	
+    	isActive.set(true);
+    	if(progress > 0){
+    		startWork();
+    	}
+    }
+    
+    private void startWork(){
+    	setProgressBarVisibility(true);
+    	new Thread(longTask).start();
+    }
 	
 	
 }
