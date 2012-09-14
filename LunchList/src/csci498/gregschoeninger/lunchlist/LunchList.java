@@ -312,22 +312,25 @@ public class LunchList extends TabActivity {
 	  	}
     }
     
-    @Override
-    public void onPause(){
-    	super.onPause();
-    	
-    	isActive.set(false);
-    }
     
-    @Override 
-    public void onResume(){
-    	super.onResume();
+    @Override
+    public void onStart(){
+    	super.onStart();
     	
     	isActive.set(true);
     	if(progress > 0){
     		startWork();
     	}
     }
+    
+    @Override
+    public void onStop(){
+    	super.onStop();
+    	
+    	isActive.set(false);
+    }
+    
+    
     
     private void startWork(){
     	setProgressBarVisibility(true);
