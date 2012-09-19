@@ -223,6 +223,7 @@ public class LunchList extends TabActivity {
 	    	current.setNotes(notes.getText().toString()); 
 	    	
 	    	helper.insert(name.getText().toString(), address.getText().toString(), current.getType(), notes.getText().toString());
+	    	restaurants.requery();
 	    	getTabHost().setCurrentTab(0);
 	    }
     	
