@@ -2,6 +2,7 @@ package csci498.gregschoeninger.lunchlist;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -15,7 +16,7 @@ public class RestaurantHelper extends SQLiteOpenHelper {
 	
 	@Override
 	public void onCreate(SQLiteDatabase db){
-		 db.execSQL("CREATE TABLE restaurants (_id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, address TEXT, type TEXT, notes TEXT);");
+		 db.execSQL("CREATE TABLE restaurants (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, address TEXT, type TEXT, notes TEXT);");
 	}
 	
 	@Override
@@ -32,5 +33,25 @@ public class RestaurantHelper extends SQLiteOpenHelper {
 		cv.put("notes", notes);
 		
 		getWritableDatabase().insert("restaurants", "name", cv);
+	}
+
+	public Cursor getAll(){
+		return getReadableDatabase().rawQuery("SELECT id, name, address, type, notes FROM restaurants ORDER BY name;", null);
+	}
+	
+	public String getName(Cursor c){
+		return c.getString(1);
+	}
+	
+	public String getAddress(Cursor c){
+		return c.getString(2);
+	}
+	
+	public String getType(Cursor c){
+		return c.getString(2);
+	}
+	
+	public String getNotes(Cursor c){
+		return c.getString(4);
 	}
 }
