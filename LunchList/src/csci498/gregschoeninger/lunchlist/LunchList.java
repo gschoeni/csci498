@@ -36,6 +36,7 @@ public class LunchList extends TabActivity {
 	private AutoCompleteTextView address;
 	private EditText notes;
 	private Restaurant current;
+	private RestaurantHelper helper;
 	
 	
     @Override
@@ -72,6 +73,8 @@ public class LunchList extends TabActivity {
         spec.setIndicator("Details", getResources().getDrawable(R.drawable.restaurant));
         getTabHost().addTab(spec);
         getTabHost().setCurrentTab(0);
+        
+        helper = new RestaurantHelper(this);
         
     }
     
@@ -241,6 +244,10 @@ public class LunchList extends TabActivity {
 	};
 	
 
-	
+	@Override
+	public void onDestroy(){
+		super.onDestroy();
+		helper.close();
+	}
 	
 }
