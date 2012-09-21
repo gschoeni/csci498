@@ -11,7 +11,10 @@ public class Assets {
 	
 	public static TextureRegion mainMenuRegion;
 	public static TextureRegion backgroundRegion;
-	public static TextureRegion squirrel;
+	
+	public static TextureRegion squirrelRight;
+	public static TextureRegion squirrelLeft;
+	public static TextureRegion acorn;
 	public static TextureRegion readyText;
 	public static TextureRegion pauseButton;
 	
@@ -22,9 +25,12 @@ public class Assets {
 		
 		backgroundRegion = new TextureRegion(backgroundTexture, 0, 0, 320, 480);
 		mainMenuRegion = new TextureRegion(mainMenuTexture, 0, 0, 320, 480);
-		squirrel = new TextureRegion(foregroundTexture, 0, 0, 100, 150);
-		readyText = new TextureRegion(foregroundTexture, 100, 0, 200, 50);
-		pauseButton = new TextureRegion(foregroundTexture, 100, 50, 50, 50);
+		
+		squirrelRight = new TextureRegion(foregroundTexture, 0, 0, 123, 140);
+		squirrelLeft = new TextureRegion(foregroundTexture, 0, 150, 123, 140);
+		readyText = new TextureRegion(foregroundTexture, 125, 0, 200, 50);
+		pauseButton = new TextureRegion(foregroundTexture, 125, 50, 50, 50);
+		acorn = new TextureRegion(foregroundTexture, 125, 140, 75, 100);
 		
 	}
 	
