@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.badlogic.androidgames.framework.math.OverlapTester;
+
 public class World {
 	public static final float WORLD_WIDTH = 10;
 	public static final float WORLD_HEIGHT = 15 * 20;
@@ -29,18 +31,30 @@ public class World {
 				Acorn acorn = new Acorn(x, y);
 				acorns.add(acorn);
 			}
-			y += rand.nextFloat() * 5;
+			y += rand.nextFloat() * 3;
 		}
 	}
 	
 
 	public void update(float deltaTime, float accelX){
 		updateSquirrel(deltaTime, accelX);
-		//going to update more stuff here, just testing mr squirrel
+		checkCollisions();
 	}
 	
 	public void updateSquirrel(float deltaTime, float accelX){
 		squirrel.velocity.x = -accelX / 10 * squirrel.MOVE_VELOCITY;
 		squirrel.update(deltaTime);
+	}
+	
+	private void checkCollisions(){
+		for (int i = 0; i < acorns.size(); i++) {
+			Acorn a = acorns.get(i);
+			if (a.position.y > squirrel.position.y) {
+				if (OverlapTester.overlapRectangles(squirrel.bounds, a.bounds)) {
+					acorns.remove(i);
+					break; 
+				}
+			} 
+		}
 	}
 }
