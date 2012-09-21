@@ -1,11 +1,17 @@
 package com.gregschoeninger.SquirrelScamper;
 
+import java.util.List;
+
 import javax.microedition.khronos.opengles.GL10;
 
 import com.badlogic.androidgames.framework.Game;
+import com.badlogic.androidgames.framework.Input.TouchEvent;
 import com.badlogic.androidgames.framework.gl.Camera2D;
 import com.badlogic.androidgames.framework.gl.SpriteBatcher;
 import com.badlogic.androidgames.framework.impl.GLScreen;
+import com.badlogic.androidgames.framework.math.OverlapTester;
+import com.badlogic.androidgames.framework.math.Rectangle;
+import com.badlogic.androidgames.framework.math.Vector2;
 
 public class GameScreen extends GLScreen {
 	static final int GAME_READY = 0;
@@ -15,6 +21,9 @@ public class GameScreen extends GLScreen {
 	SpriteBatcher batcher;
 	World world;
 	WorldRenderer renderer;
+	Vector2 touchPoint;
+	Rectangle pauseBounds;
+	Rectangle readyBounds;
 	
 	int state;
 	
@@ -23,7 +32,11 @@ public class GameScreen extends GLScreen {
 		guiCam = new Camera2D(glGraphics, 320, 480);
 		batcher = new SpriteBatcher(glGraphics, 1000);
 		world = new World();
+		touchPoint = new Vector2();
 		renderer = new WorldRenderer(glGraphics, batcher, world);
+		
+		pauseBounds = new Rectangle(20, 400, 50, 50);
+		readyBounds = new Rectangle(0, 200, 320, 100);
 		state = GAME_READY;
 	}
 
@@ -44,12 +57,38 @@ public class GameScreen extends GLScreen {
 	}
 	
 	private void updateReady(){
-		if(game.getInput().getTouchEvents().size() > 0){
-			state = GAME_RUNNING;
+		List<TouchEvent> touchEvents = game.getInput().getTouchEvents();
+		int len = touchEvents.size();
+		for(int i = 0; i < len; i++){
+			TouchEvent event = touchEvents.get(i);
+			if(event.type != TouchEvent.TOUCH_UP)
+				continue;
+			touchPoint.set(event.x, event.y);
+			guiCam.touchToWorld(touchPoint);
+			
+			if(OverlapTester.pointInRectangle(readyBounds, touchPoint)){
+				state = GAME_RUNNING;
+				return;
+			}
 		}
 	}
 	
 	private void updateRunning(float deltaTime){
+		List<TouchEvent> touchEvents = game.getInput().getTouchEvents();
+		int len = touchEvents.size();
+		for(int i = 0; i < len; i++){
+			TouchEvent event = touchEvents.get(i);
+			if(event.type != TouchEvent.TOUCH_UP)
+				continue;
+			touchPoint.set(event.x, event.y);
+			guiCam.touchToWorld(touchPoint);
+			
+			if(OverlapTester.pointInRectangle(pauseBounds, touchPoint)){
+				state = GAME_READY;
+				return;
+			}
+		}
+		
 		world.update(deltaTime, game.getInput().getAccelX());
 	}
 
@@ -86,7 +125,7 @@ public class GameScreen extends GLScreen {
 	}
 	
 	private void presentRunning(){
-		batcher.drawSprite(400, 20, 50, 50, Assets.pauseButton);
+		batcher.drawSprite(pauseBounds.lowerLeft.x, pauseBounds.lowerLeft.y + pauseBounds.height, pauseBounds.width, pauseBounds.height, Assets.pauseButton);
 	}
 	
 	@Override
