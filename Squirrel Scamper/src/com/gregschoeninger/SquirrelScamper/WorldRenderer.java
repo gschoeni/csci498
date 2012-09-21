@@ -22,6 +22,8 @@ public class WorldRenderer {
 	}
 	
 	public void render(){
+		if(world.squirrel.position.y > cam.position.y)
+			cam.position.y = world.squirrel.position.y;
 		cam.setViewportAndMatrices();
 		renderBackground();
 		renderForeground();
@@ -40,6 +42,7 @@ public class WorldRenderer {
 		
 		batcher.beginBatch(Assets.foregroundTexture);
 		renderSquirrel();
+		renderAcorns();
 		batcher.endBatch();
 		
 		gl.glDisable(GL10.GL_BLEND);
@@ -50,6 +53,13 @@ public class WorldRenderer {
 			batcher.drawSprite(world.squirrel.position.x, world.squirrel.position.y, Squirrel.SQUIRREL_WIDTH, Squirrel.SQUIRREL_HEIGHT, Assets.squirrelLeft);
 		else 
 			batcher.drawSprite(world.squirrel.position.x, world.squirrel.position.y, Squirrel.SQUIRREL_WIDTH, Squirrel.SQUIRREL_HEIGHT, Assets.squirrelRight);
+	}
+	
+	private void renderAcorns(){
+		for(int i = 0; i < world.acorns.size(); i++){
+			Acorn a = world.acorns.get(i);
+			batcher.drawSprite(a.position.x, a.position.y, Acorn.WIDTH, Acorn.HEIGHT, Assets.acorn);
+		}
 	}
 	
 	

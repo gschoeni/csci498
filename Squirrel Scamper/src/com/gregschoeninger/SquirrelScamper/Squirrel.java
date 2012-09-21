@@ -21,6 +21,8 @@ public class Squirrel extends DynamicGameObject {
 		
 		if(position.x > World.WORLD_WIDTH - halfSquirrelWidth)
 			position.x = World.WORLD_WIDTH - halfSquirrelWidth;
+		
+		this.position.y += 0.1;
 	}
 
 }
