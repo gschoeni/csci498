@@ -37,8 +37,9 @@ public class WorldRenderer {
 		gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
 		
 		batcher.beginBatch(Assets.foregroundTexture);
-		batcher.drawSprite(5, 5, 5, 5, Assets.squirrel);
+		batcher.drawSprite(world.squirrel.position.x, world.squirrel.position.y, Squirrel.SQUIRREL_WIDTH, Squirrel.SQUIRREL_HEIGHT, Assets.squirrel);
 		batcher.endBatch();
+		
 		gl.glDisable(GL10.GL_BLEND);
 	}
 
