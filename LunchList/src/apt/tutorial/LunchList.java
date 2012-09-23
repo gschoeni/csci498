@@ -1,4 +1,4 @@
-package csci498.gregschoeninger.lunchlist;
+package apt.tutorial;
 
 import android.app.TabActivity;
 import android.content.Context;
