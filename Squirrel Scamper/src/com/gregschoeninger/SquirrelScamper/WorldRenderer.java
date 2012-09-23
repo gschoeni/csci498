@@ -2,6 +2,8 @@ package com.gregschoeninger.SquirrelScamper;
 
 import javax.microedition.khronos.opengles.GL10;
 
+import android.util.Log;
+
 import com.badlogic.androidgames.framework.gl.Camera2D;
 import com.badlogic.androidgames.framework.gl.SpriteBatcher;
 import com.badlogic.androidgames.framework.impl.GLGraphics;
@@ -22,8 +24,8 @@ public class WorldRenderer {
 	}
 	
 	public void render(){
-		if(world.squirrel.position.y > cam.position.y)
-			cam.position.y = world.squirrel.position.y;
+		if(world.squirrel.position.y + 5.5f > cam.position.y)
+			cam.position.y = world.squirrel.position.y + 5.5f;
 		cam.setViewportAndMatrices();
 		renderBackground();
 		renderForeground();

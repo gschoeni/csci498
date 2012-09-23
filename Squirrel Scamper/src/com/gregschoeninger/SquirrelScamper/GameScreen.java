@@ -125,7 +125,7 @@ public class GameScreen extends GLScreen {
 	}
 	
 	private void presentRunning(){
-		batcher.drawSprite(pauseBounds.lowerLeft.x, pauseBounds.lowerLeft.y + pauseBounds.height, pauseBounds.width, pauseBounds.height, Assets.pauseButton);
+		batcher.drawSprite(pauseBounds.lowerLeft.x+10, pauseBounds.lowerLeft.y + pauseBounds.height, pauseBounds.width, pauseBounds.height, Assets.pauseButton);
 	}
 	
 	@Override

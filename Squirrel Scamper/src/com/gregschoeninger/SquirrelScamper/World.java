@@ -25,7 +25,7 @@ public class World {
 	private void generateWorld(){
 		float y = 0;
 		
-		while(y < WORLD_HEIGHT - WORLD_WIDTH / 2){
+		while(y < WORLD_HEIGHT){
 			if (rand.nextFloat() > 0.6f) {
 				float x = rand.nextFloat() * (WORLD_WIDTH - Acorn.WIDTH) + Acorn.WIDTH / 2;
 				Acorn acorn = new Acorn(x, y);
@@ -42,7 +42,7 @@ public class World {
 	}
 	
 	public void updateSquirrel(float deltaTime, float accelX){
-		squirrel.velocity.x = -accelX / 10 * squirrel.MOVE_VELOCITY;
+		squirrel.velocity.x = -accelX / 10 * squirrel.VELOCITY_X;
 		squirrel.update(deltaTime);
 	}
 	
