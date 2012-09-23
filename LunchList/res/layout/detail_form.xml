@@ -24,7 +24,8 @@
 	          android:checked="true" />
 	        <RadioButton android:id="@+id/sit_down"
 	          android:text="@string/sit_down" />
-	        <RadioButton android:id="@+id/delivery" />
+	        <RadioButton android:id="@+id/delivery"
+	            		android:text="@string/delivery"	 />
 	       </RadioGroup>
 	     </TableRow>
 	     <TableRow>
