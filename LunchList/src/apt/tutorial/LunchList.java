@@ -31,6 +31,7 @@ public class LunchList extends ListActivity {
 	private EditText notes;
 	private Restaurant current;
 	private RestaurantHelper helper;
+	public final static String ID_EXTRA = "apt.tutorial._ID";
 	
 	
     @Override
@@ -180,6 +181,7 @@ public class LunchList extends ListActivity {
     private AdapterView.OnItemClickListener onListClick = new AdapterView.OnItemClickListener() {
     	public void onItemClick(AdapterView<?> parent, View view, int position, long id){
     		Intent i = new Intent(LunchList.this, DetailForm.class);
+    		i.putExtra(ID_EXTRA, String.valueOf(id));
     		startActivity(i);
     	}
 	};
