@@ -1,6 +1,6 @@
 package apt.tutorial;
 
-import android.app.TabActivity;
+import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -20,10 +20,8 @@ import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.TabHost;
 import android.widget.TextView;
-import apt.tutorial.DetailForm;
-import apt.tutorial.R;
 
-public class LunchList extends TabActivity {
+public class LunchList extends ListActivity {
 	
 	private Cursor restaurants;
 	private CursorAdapter restaurantsAdapter;
@@ -41,42 +39,10 @@ public class LunchList extends TabActivity {
         setContentView(R.layout.activity_lunch_list);
         
         helper = new RestaurantHelper(this);
-        
-        types = (RadioGroup) findViewById(R.id.types);
-        name = (EditText) findViewById(R.id.name); 
-        address = (AutoCompleteTextView) findViewById(R.id.address);
-        notes = (EditText) findViewById(R.id.notes); 
-        
-        Button save = (Button)findViewById(R.id.save); 
-        save.setOnClickListener(onSave);
-        
-        ListView list = (ListView)findViewById(R.id.restaurants);
         restaurants = helper.getAll();
         startManagingCursor(restaurants);
         restaurantsAdapter = new RestaurantAdapter(restaurants);
-        list.setAdapter(restaurantsAdapter);
-        
-        list.setOnItemClickListener(onListClick);
-        
-        String addresses[] = { "Golden", "Boulder", "Denver", "Arvada", "Colorado"};
-        
-        address = (AutoCompleteTextView)findViewById(R.id.address);
-        address.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, addresses));
-        
-        
-        TabHost.TabSpec spec = getTabHost().newTabSpec("tag1");
-        spec.setContent(R.id.restaurants); 
-        spec.setIndicator("List", getResources().getDrawable(R.drawable.list));
-        
-        getTabHost().addTab(spec);
-        spec = getTabHost().newTabSpec("tag2"); 
-        spec.setContent(R.id.details); 
-        spec.setIndicator("Details", getResources().getDrawable(R.drawable.restaurant));
-        getTabHost().addTab(spec);
-        getTabHost().setCurrentTab(0);
-        
-        
-        
+        setListAdapter(restaurantsAdapter);
     }
     
     
@@ -210,38 +176,6 @@ public class LunchList extends TabActivity {
         }
     	
     }
-
-    private View.OnClickListener onSave = new View.OnClickListener() {
-    	
-    	public void onClick(View v) {
-    		current = new Restaurant();
-    		
-    		current.setName(name.getText().toString());
-    		current.setAddress(address.getText().toString()); 
-	    	setRestaurantType(types, current);
-	    	current.setNotes(notes.getText().toString()); 
-	    	
-	    	helper.insert(name.getText().toString(), address.getText().toString(), current.getType(), notes.getText().toString());
-	    	restaurants.requery();
-	    	getTabHost().setCurrentTab(0);
-	    }
-    	
-    	public void setRestaurantType(RadioGroup types, Restaurant r){
-    		switch(types.getCheckedRadioButtonId()){
-		    	case R.id.delivery:
-		    		r.setType("delivery");
-		    		break;
-		    	case R.id.sit_down:
-		    		r.setType("sit_down");
-		    		break;
-		    	case R.id.take_out:
-		    		r.setType("take_out");
-		    		break;
-	    	}
-    	}
-	    	
-    	
-    };
     
     private AdapterView.OnItemClickListener onListClick = new AdapterView.OnItemClickListener() {
     	public void onItemClick(AdapterView<?> parent, View view, int position, long id){
