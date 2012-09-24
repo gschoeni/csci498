@@ -1,6 +1,5 @@
 package com.gregschoeninger.SquirrelScamper;
 
-import android.util.Log;
 
 import com.badlogic.androidgames.framework.gl.SpriteBatcher;
 import com.badlogic.androidgames.framework.gl.Texture;
@@ -26,7 +25,6 @@ public class NumberRenderer {
 	    }
 	    
 	    public void drawNumber(SpriteBatcher batcher, BigInt num, float x, float y) {
-	    	Log.d("size", num.size + "");
 	        for(int i = num.size - 1; i >= 0; i--) {
 	            TextureRegion glyph = numbers[num.digits[i]];
 	            batcher.drawSprite(x, y, glyphWidth, glyphHeight, glyph);

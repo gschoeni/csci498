@@ -14,6 +14,7 @@ public class World {
 	
 	public final Squirrel squirrel;
 	public List<Acorn> acorns;
+	public List<Bird> birds;
 	
 	public final Random rand;
 	public int score;
@@ -22,6 +23,8 @@ public class World {
 	public World(){
 		this.squirrel = new Squirrel(5, 2);
 		this.acorns = new ArrayList<Acorn>();
+		this.birds = new ArrayList<Bird>();
+		
 		rand = new Random();
 		generateWorld();
 		this.score = 0;
@@ -37,6 +40,12 @@ public class World {
 				Acorn acorn = new Acorn(x, y);
 				acorns.add(acorn);
 			}
+			
+			if (rand.nextFloat() < 0.1f) {
+				float x = rand.nextFloat() * (WORLD_WIDTH - Bird.WIDTH) + Bird.WIDTH / 2;
+				Bird bird = new Bird(x, y);
+				birds.add(bird);
+			}
 			y += rand.nextFloat() * 3;
 		}
 	}
@@ -45,14 +54,22 @@ public class World {
 	public void update(float deltaTime, float accelX){
 		if(state == WORLD_STATE_RUNNING){
 			updateSquirrel(deltaTime, accelX);
+			updateBirds(deltaTime);
 			checkCollisions();
 			checkRestart();
 		}
 	}
 	
-	public void updateSquirrel(float deltaTime, float accelX){
+	private void updateSquirrel(float deltaTime, float accelX){
 		squirrel.velocity.x = -accelX * squirrel.VELOCITY_X;
 		squirrel.update(deltaTime);
+	}
+	
+	private void updateBirds(float deltaTime){
+		for(int i = 0; i < birds.size(); i++){
+			Bird b = birds.get(i);
+			b.update(deltaTime);
+		}
 	}
 	
 	private void checkCollisions(){

@@ -2,14 +2,10 @@ package com.gregschoeninger.SquirrelScamper;
 
 import javax.microedition.khronos.opengles.GL10;
 
-import android.util.Log;
 
 import com.badlogic.androidgames.framework.gl.Camera2D;
 import com.badlogic.androidgames.framework.gl.SpriteBatcher;
-import com.badlogic.androidgames.framework.gl.Texture;
-import com.badlogic.androidgames.framework.gl.TextureRegion;
 import com.badlogic.androidgames.framework.impl.GLGraphics;
-import com.badlogic.androidgames.framework.math.BigInt;
 
 public class WorldRenderer {
 	static final float FRUSTUM_WIDTH = 10;
@@ -35,6 +31,7 @@ public class WorldRenderer {
 		//make sure we reset back to him on restart
 		if(world.squirrel.position.y + 5.0f < cam.position.y)
 			cam.position.y = world.squirrel.position.y + 5.5f;
+		
 		cam.setViewportAndMatrices();
 		renderBackground();
 		renderForeground();
@@ -54,6 +51,7 @@ public class WorldRenderer {
 		batcher.beginBatch(Assets.foregroundTexture);
 		renderSquirrel();
 		renderAcorns();
+		renderBirds();
 		batcher.endBatch();
 		
 		gl.glDisable(GL10.GL_BLEND);
@@ -70,6 +68,15 @@ public class WorldRenderer {
 		for(int i = 0; i < world.acorns.size(); i++){
 			Acorn a = world.acorns.get(i);
 			batcher.drawSprite(a.position.x, a.position.y, Acorn.WIDTH, Acorn.HEIGHT, Assets.acorn);
+		}
+	}
+	
+	
+	private void renderBirds(){
+		for(int i = 0; i < world.birds.size(); i++){
+			Bird b = world.birds.get(i);
+			float side = b.velocity.x < 0 ? 1 : -1;
+			batcher.drawSprite(b.position.x, b.position.y, Bird.WIDTH * side, Bird.HEIGHT, Assets.bird);
 		}
 	}
 	

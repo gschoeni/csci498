@@ -15,6 +15,8 @@ public class Assets {
 	public static TextureRegion squirrelRight;
 	public static TextureRegion squirrelLeft;
 	public static TextureRegion acorn;
+	public static TextureRegion bird;
+	
 	public static TextureRegion readyText;
 	public static TextureRegion pauseButton;
 	
@@ -30,7 +32,8 @@ public class Assets {
 		squirrelLeft = new TextureRegion(foregroundTexture, 0, 140, 123, 140);
 		readyText = new TextureRegion(foregroundTexture, 125, 0, 175, 50);
 		pauseButton = new TextureRegion(foregroundTexture, 125, 50, 50, 50);
-		acorn = new TextureRegion(foregroundTexture, 125, 140, 75, 100);
+		acorn = new TextureRegion(foregroundTexture, 125, 140, 40, 45);
+		bird = new TextureRegion(foregroundTexture, 165, 50, 190, 165);
 		
 	}
 	

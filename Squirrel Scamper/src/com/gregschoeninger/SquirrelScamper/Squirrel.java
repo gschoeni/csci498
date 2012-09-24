@@ -6,7 +6,7 @@ public class Squirrel extends DynamicGameObject {
 	public static final float SQUIRREL_WIDTH = 2.0f;
 	public static final float SQUIRREL_HEIGHT = 2.5f;
 	public final float VELOCITY_X = 4;
-	public final float VELOCITY_Y = 0.1f;
+	public final float VELOCITY_Y = 0.08f;
 	
 	public Squirrel(float x, float y) {
 		super(x, y, SQUIRREL_WIDTH, SQUIRREL_HEIGHT);
