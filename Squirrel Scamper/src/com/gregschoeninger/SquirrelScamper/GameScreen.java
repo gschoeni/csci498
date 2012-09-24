@@ -133,8 +133,9 @@ public class GameScreen extends GLScreen {
 		
 		//Draw the score
 		if(world.score != lastScore.intValue){
-			lastScore = new BigInt(world.score); 
+			lastScore = new BigInt(world.squirrel.acorns.size()); 
 		}
+		
 		
 		numberRenderer.drawNumber(batcher, lastScore, 20, 20);
 	}

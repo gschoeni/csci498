@@ -55,6 +55,7 @@ public class WorldRenderer {
 		gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
 		
 		batcher.beginBatch(Assets.foregroundTexture);
+		renderHoles();
 		renderSquirrel();
 		renderAcorns();
 		renderBirds();
@@ -74,6 +75,13 @@ public class WorldRenderer {
 		for(int i = 0; i < world.acorns.size(); i++){
 			Acorn a = world.acorns.get(i);
 			batcher.drawSprite(a.position.x, a.position.y, Acorn.WIDTH, Acorn.HEIGHT, Assets.acorn);
+		}
+	}
+
+	private void renderHoles(){
+		for(int i = 0; i < world.holes.size(); i++){
+			Hole h = world.holes.get(i);
+			batcher.drawSprite(h.position.x, h.position.y, Hole.WIDTH, Hole.HEIGHT, Assets.hole);
 		}
 	}
 	

@@ -17,12 +17,14 @@ public class Assets {
 	public static TextureRegion squirrelRight;
 	public static TextureRegion squirrelLeft;
 	public static TextureRegion acorn;
+	public static TextureRegion hole;
 	
 	public static Animation bird;
 	
 	
 	public static TextureRegion readyText;
 	public static TextureRegion pauseButton;
+	public static TextureRegion fireButton;
 	
 	public static void load(GLGame game){
 		mainMenuTexture = new Texture(game, "MainMenu.png"); 
@@ -34,12 +36,14 @@ public class Assets {
 		backgroundRegion1 = new TextureRegion(backgroundTexture, 0, 0, 320, 480);
 		backgroundRegion2 = new TextureRegion(backgroundTexture, 0, 0, 320, 480);
 		
-		squirrelRight = new TextureRegion(foregroundTexture, 0, 0, 123, 140);
-		squirrelLeft = new TextureRegion(foregroundTexture, 0, 140, 123, 140);
 		readyText = new TextureRegion(foregroundTexture, 125, 0, 175, 50);
 		pauseButton = new TextureRegion(foregroundTexture, 125, 50, 50, 50);
-		acorn = new TextureRegion(foregroundTexture, 125, 140, 40, 45);
+		fireButton = new TextureRegion(foregroundTexture, 125, 50, 50, 50);
 		
+		squirrelRight = new TextureRegion(foregroundTexture, 0, 0, 123, 140);
+		squirrelLeft = new TextureRegion(foregroundTexture, 0, 140, 123, 140);
+		acorn = new TextureRegion(foregroundTexture, 125, 140, 40, 45);
+		hole = new TextureRegion(foregroundTexture, 125, 200, 40, 60);
 		bird = new Animation(0.1f,
 				new TextureRegion(foregroundTexture, 165, 50, 190, 153), 
 				new TextureRegion(foregroundTexture, 165, 203, 190, 153), 
