@@ -28,7 +28,12 @@ public class WorldRenderer {
 	}
 	
 	public void render(){
+		//climb with the squirrel
 		if(world.squirrel.position.y + 5.5f > cam.position.y)
+			cam.position.y = world.squirrel.position.y + 5.5f;
+		
+		//make sure we reset back to him on restart
+		if(world.squirrel.position.y + 5.0f < cam.position.y)
 			cam.position.y = world.squirrel.position.y + 5.5f;
 		cam.setViewportAndMatrices();
 		renderBackground();

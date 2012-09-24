@@ -9,12 +9,15 @@ import com.badlogic.androidgames.framework.math.OverlapTester;
 public class World {
 	public static final float WORLD_WIDTH = 10;
 	public static final float WORLD_HEIGHT = 15 * 20;
+	public static final int WORLD_STATE_RUNNING = 0;
+	public static final int WORLD_STATE_READY = 1;
 	
 	public final Squirrel squirrel;
 	public List<Acorn> acorns;
 	
 	public final Random rand;
 	public int score;
+	public int state;
 	
 	public World(){
 		this.squirrel = new Squirrel(5, 2);
@@ -22,10 +25,11 @@ public class World {
 		rand = new Random();
 		generateWorld();
 		this.score = 0;
+		this.state = WORLD_STATE_READY;
 	}
 	
 	private void generateWorld(){
-		float y = 0;
+		float y = 3;
 		
 		while(y < WORLD_HEIGHT){
 			if (rand.nextFloat() > 0.6f) {
@@ -39,12 +43,15 @@ public class World {
 	
 
 	public void update(float deltaTime, float accelX){
-		updateSquirrel(deltaTime, accelX);
-		checkCollisions();
+		if(state == WORLD_STATE_RUNNING){
+			updateSquirrel(deltaTime, accelX);
+			checkCollisions();
+			checkRestart();
+		}
 	}
 	
 	public void updateSquirrel(float deltaTime, float accelX){
-		squirrel.velocity.x = -accelX / 10 * squirrel.VELOCITY_X;
+		squirrel.velocity.x = -accelX * squirrel.VELOCITY_X;
 		squirrel.update(deltaTime);
 	}
 	
@@ -58,6 +65,15 @@ public class World {
 					break; 
 				}
 			} 
+		}
+	}
+	
+	private void checkRestart(){
+		if(squirrel.position.y > WORLD_HEIGHT){
+			state = WORLD_STATE_READY;
+			score = 0;
+			squirrel.position.y = 0;
+			generateWorld();
 		}
 	}
 }

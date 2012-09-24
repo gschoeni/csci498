@@ -5,7 +5,7 @@ import com.badlogic.androidgames.framework.DynamicGameObject;
 public class Squirrel extends DynamicGameObject {
 	public static final float SQUIRREL_WIDTH = 2.0f;
 	public static final float SQUIRREL_HEIGHT = 2.5f;
-	public final float VELOCITY_X = 40;
+	public final float VELOCITY_X = 4;
 	public final float VELOCITY_Y = 0.1f;
 	
 	public Squirrel(float x, float y) {

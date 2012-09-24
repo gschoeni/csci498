@@ -8,7 +8,6 @@ import com.badlogic.androidgames.framework.Game;
 import com.badlogic.androidgames.framework.Input.TouchEvent;
 import com.badlogic.androidgames.framework.gl.Camera2D;
 import com.badlogic.androidgames.framework.gl.SpriteBatcher;
-import com.badlogic.androidgames.framework.gl.TextureRegion;
 import com.badlogic.androidgames.framework.impl.GLScreen;
 import com.badlogic.androidgames.framework.math.BigInt;
 import com.badlogic.androidgames.framework.math.OverlapTester;
@@ -16,8 +15,6 @@ import com.badlogic.androidgames.framework.math.Rectangle;
 import com.badlogic.androidgames.framework.math.Vector2;
 
 public class GameScreen extends GLScreen {
-	static final int GAME_READY = 0;
-	static final int GAME_RUNNING = 1;
 	
 	Camera2D guiCam;
 	SpriteBatcher batcher;
@@ -26,7 +23,6 @@ public class GameScreen extends GLScreen {
 	Vector2 touchPoint;
 	Rectangle pauseBounds;
 	Rectangle readyBounds;
-	int state;
 	BigInt lastScore;
 
 	NumberRenderer numberRenderer;
@@ -42,7 +38,6 @@ public class GameScreen extends GLScreen {
 		
 		pauseBounds = new Rectangle(20, 400, 50, 50);
 		readyBounds = new Rectangle(0, 200, 320, 100);
-		state = GAME_READY;
 		
 		lastScore = new BigInt(0);
 	}
@@ -53,11 +48,11 @@ public class GameScreen extends GLScreen {
 		//our game be interrupted by the garbage collector and not run as smooth (see page 477)
 		if(deltaTime > 0.1f) 
 			deltaTime = 0.1f;
-		switch(state) { 
-			case GAME_READY:
+		switch(world.state) { 
+			case World.WORLD_STATE_READY:
 				updateReady();
 				break;
-			case GAME_RUNNING:
+			case World.WORLD_STATE_RUNNING:
 				updateRunning(deltaTime);
 				break;
 		}
@@ -74,7 +69,7 @@ public class GameScreen extends GLScreen {
 			guiCam.touchToWorld(touchPoint);
 			
 			if(OverlapTester.pointInRectangle(readyBounds, touchPoint)){
-				state = GAME_RUNNING;
+				world.state = World.WORLD_STATE_RUNNING;
 				return;
 			}
 		}
@@ -91,7 +86,7 @@ public class GameScreen extends GLScreen {
 			guiCam.touchToWorld(touchPoint);
 			
 			if(OverlapTester.pointInRectangle(pauseBounds, touchPoint)){
-				state = GAME_READY;
+				world.state = World.WORLD_STATE_READY;
 				return;
 			}
 		}
@@ -113,11 +108,11 @@ public class GameScreen extends GLScreen {
 		
 		guiCam.setViewportAndMatrices();
 		
-		switch(state){
-			case GAME_READY:
+		switch(world.state){
+			case World.WORLD_STATE_READY:
 				presentReady();
 				break;
-			case GAME_RUNNING:
+			case World.WORLD_STATE_RUNNING:
 				presentRunning();
 				break;
 		}
