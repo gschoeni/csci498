@@ -11,7 +11,8 @@ public class Assets {
 	public static Texture foregroundTexture;
 	
 	public static TextureRegion mainMenuRegion;
-	public static TextureRegion backgroundRegion;
+	public static TextureRegion backgroundRegion1;
+	public static TextureRegion backgroundRegion2;
 	
 	public static TextureRegion squirrelRight;
 	public static TextureRegion squirrelLeft;
@@ -25,11 +26,13 @@ public class Assets {
 	
 	public static void load(GLGame game){
 		mainMenuTexture = new Texture(game, "MainMenu.png"); 
-		backgroundTexture = new Texture(game, "background.png"); 
+		backgroundTexture = new Texture(game, "FullBackground.png"); 
 		foregroundTexture = new Texture(game, "ForegroundSprite.png");
 		
-		backgroundRegion = new TextureRegion(backgroundTexture, 0, 0, 320, 480);
 		mainMenuRegion = new TextureRegion(mainMenuTexture, 0, 0, 320, 480);
+		
+		backgroundRegion1 = new TextureRegion(backgroundTexture, 0, 0, 320, 480);
+		backgroundRegion2 = new TextureRegion(backgroundTexture, 0, 0, 320, 480);
 		
 		squirrelRight = new TextureRegion(foregroundTexture, 0, 0, 123, 140);
 		squirrelLeft = new TextureRegion(foregroundTexture, 0, 140, 123, 140);

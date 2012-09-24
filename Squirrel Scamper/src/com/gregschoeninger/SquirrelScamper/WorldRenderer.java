@@ -10,6 +10,7 @@ import com.badlogic.androidgames.framework.impl.GLGraphics;
 public class WorldRenderer {
 	static final float FRUSTUM_WIDTH = 10;
 	static final float FRUSTUM_HEIGHT = 15;
+	Background background;
 	GLGraphics glGraphics;
 	World world;
 	Camera2D cam;
@@ -20,7 +21,7 @@ public class WorldRenderer {
 		this.batcher = b;
 		this.world = w;
 		this.cam = new Camera2D(g, FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
-		
+		this.background = new Background(Assets.backgroundRegion1, Assets.backgroundRegion2);
 	}
 	
 	public void render(){
@@ -39,7 +40,12 @@ public class WorldRenderer {
 	
 	private void renderBackground(){
 		batcher.beginBatch(Assets.backgroundTexture);
-		batcher.drawSprite(cam.position.x, cam.position.y, FRUSTUM_WIDTH, FRUSTUM_HEIGHT, Assets.backgroundRegion);
+		if(world.state == World.WORLD_STATE_RUNNING){
+			background.update();
+		}
+		
+		batcher.drawSprite(cam.position.x, cam.position.y+background.region1_y, FRUSTUM_WIDTH, FRUSTUM_HEIGHT, background.region1);
+		batcher.drawSprite(cam.position.x, cam.position.y+background.region2_y, FRUSTUM_WIDTH, FRUSTUM_HEIGHT, background.region2);
 		batcher.endBatch();
 	}
 	
