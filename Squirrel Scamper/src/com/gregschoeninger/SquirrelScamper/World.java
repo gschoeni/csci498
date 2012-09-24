@@ -14,12 +14,14 @@ public class World {
 	public List<Acorn> acorns;
 	
 	public final Random rand;
+	public int score;
 	
 	public World(){
 		this.squirrel = new Squirrel(5, 2);
 		this.acorns = new ArrayList<Acorn>();
 		rand = new Random();
 		generateWorld();
+		this.score = 0;
 	}
 	
 	private void generateWorld(){
@@ -52,6 +54,7 @@ public class World {
 			if (a.position.y > squirrel.position.y) {
 				if (OverlapTester.overlapRectangles(squirrel.bounds, a.bounds)) {
 					acorns.remove(i);
+					score += Acorn.SCORE;
 					break; 
 				}
 			} 

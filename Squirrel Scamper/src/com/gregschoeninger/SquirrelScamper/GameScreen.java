@@ -8,7 +8,9 @@ import com.badlogic.androidgames.framework.Game;
 import com.badlogic.androidgames.framework.Input.TouchEvent;
 import com.badlogic.androidgames.framework.gl.Camera2D;
 import com.badlogic.androidgames.framework.gl.SpriteBatcher;
+import com.badlogic.androidgames.framework.gl.TextureRegion;
 import com.badlogic.androidgames.framework.impl.GLScreen;
+import com.badlogic.androidgames.framework.math.BigInt;
 import com.badlogic.androidgames.framework.math.OverlapTester;
 import com.badlogic.androidgames.framework.math.Rectangle;
 import com.badlogic.androidgames.framework.math.Vector2;
@@ -24,8 +26,10 @@ public class GameScreen extends GLScreen {
 	Vector2 touchPoint;
 	Rectangle pauseBounds;
 	Rectangle readyBounds;
-	
 	int state;
+	BigInt lastScore;
+
+	NumberRenderer numberRenderer;
 	
 	public GameScreen(Game game) {
 		super(game);
@@ -34,10 +38,13 @@ public class GameScreen extends GLScreen {
 		world = new World();
 		touchPoint = new Vector2();
 		renderer = new WorldRenderer(glGraphics, batcher, world);
+		numberRenderer = new NumberRenderer(Assets.foregroundTexture, 300, 0, 35, 50);
 		
 		pauseBounds = new Rectangle(20, 400, 50, 50);
 		readyBounds = new Rectangle(0, 200, 320, 100);
 		state = GAME_READY;
+		
+		lastScore = new BigInt(0);
 	}
 
 	@Override
@@ -121,12 +128,22 @@ public class GameScreen extends GLScreen {
 	}
 
 	private void presentReady(){
-		batcher.drawSprite(160, 240, 192, 32, Assets.readyText);
+		batcher.drawSprite(160, 240, 175, 32, Assets.readyText);
 	}
 	
 	private void presentRunning(){
+		//Draw the pause button
 		batcher.drawSprite(pauseBounds.lowerLeft.x+10, pauseBounds.lowerLeft.y + pauseBounds.height, pauseBounds.width, pauseBounds.height, Assets.pauseButton);
+		
+		
+		//Draw the score
+		if(world.score != lastScore.intValue){
+			lastScore = new BigInt(world.score); 
+		}
+		
+		numberRenderer.drawNumber(batcher, lastScore, 20, 20);
 	}
+	
 	
 	@Override
 	public void pause() {

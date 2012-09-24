@@ -27,8 +27,8 @@ public class Assets {
 		mainMenuRegion = new TextureRegion(mainMenuTexture, 0, 0, 320, 480);
 		
 		squirrelRight = new TextureRegion(foregroundTexture, 0, 0, 123, 140);
-		squirrelLeft = new TextureRegion(foregroundTexture, 0, 150, 123, 140);
-		readyText = new TextureRegion(foregroundTexture, 125, 0, 200, 50);
+		squirrelLeft = new TextureRegion(foregroundTexture, 0, 140, 123, 140);
+		readyText = new TextureRegion(foregroundTexture, 125, 0, 175, 50);
 		pauseButton = new TextureRegion(foregroundTexture, 125, 50, 50, 50);
 		acorn = new TextureRegion(foregroundTexture, 125, 140, 75, 100);
 		

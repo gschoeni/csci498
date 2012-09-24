@@ -6,7 +6,10 @@ import android.util.Log;
 
 import com.badlogic.androidgames.framework.gl.Camera2D;
 import com.badlogic.androidgames.framework.gl.SpriteBatcher;
+import com.badlogic.androidgames.framework.gl.Texture;
+import com.badlogic.androidgames.framework.gl.TextureRegion;
 import com.badlogic.androidgames.framework.impl.GLGraphics;
+import com.badlogic.androidgames.framework.math.BigInt;
 
 public class WorldRenderer {
 	static final float FRUSTUM_WIDTH = 10;
@@ -21,6 +24,7 @@ public class WorldRenderer {
 		this.batcher = b;
 		this.world = w;
 		this.cam = new Camera2D(g, FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
+		
 	}
 	
 	public void render(){
@@ -63,6 +67,7 @@ public class WorldRenderer {
 			batcher.drawSprite(a.position.x, a.position.y, Acorn.WIDTH, Acorn.HEIGHT, Assets.acorn);
 		}
 	}
+	
 	
 	
 
