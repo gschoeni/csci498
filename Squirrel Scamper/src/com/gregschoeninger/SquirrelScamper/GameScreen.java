@@ -22,6 +22,7 @@ public class GameScreen extends GLScreen {
 	WorldRenderer renderer;
 	Vector2 touchPoint;
 	Rectangle pauseBounds;
+	Rectangle fireBounds;
 	Rectangle readyBounds;
 	BigInt lastScore;
 
@@ -38,6 +39,7 @@ public class GameScreen extends GLScreen {
 		
 		pauseBounds = new Rectangle(20, 400, 50, 50);
 		readyBounds = new Rectangle(0, 200, 320, 100);
+		fireBounds = new Rectangle(250, 20, 110, 50);
 		
 		lastScore = new BigInt(0);
 	}
@@ -89,6 +91,11 @@ public class GameScreen extends GLScreen {
 				world.state = World.WORLD_STATE_READY;
 				return;
 			}
+			
+			if(OverlapTester.pointInRectangle(fireBounds, touchPoint)){
+				world.squirrel.fireAcorn();
+				return;
+			}
 		}
 		
 		world.update(deltaTime, game.getInput().getAccelX());
@@ -123,12 +130,23 @@ public class GameScreen extends GLScreen {
 	}
 
 	private void presentReady(){
-		batcher.drawSprite(160, 240, 175, 32, Assets.readyText);
+		batcher.drawSprite(160, 240, 160, 32, Assets.readyText);
 	}
 	
 	private void presentRunning(){
 		//Draw the pause button
-		batcher.drawSprite(pauseBounds.lowerLeft.x+10, pauseBounds.lowerLeft.y + pauseBounds.height, pauseBounds.width, pauseBounds.height, Assets.pauseButton);
+		batcher.drawSprite(pauseBounds.lowerLeft.x+10, 
+							pauseBounds.lowerLeft.y + pauseBounds.height, 
+							pauseBounds.width, 
+							pauseBounds.height, 
+							Assets.pauseButton);
+		
+		//Draw the fire button
+		batcher.drawSprite(250, 
+							20, 
+							110, 
+							50, 
+							Assets.fireButton);
 		
 		
 		//Draw the score

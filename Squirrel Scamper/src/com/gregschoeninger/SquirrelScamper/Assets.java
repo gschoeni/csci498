@@ -38,7 +38,7 @@ public class Assets {
 		
 		readyText = new TextureRegion(foregroundTexture, 125, 0, 175, 50);
 		pauseButton = new TextureRegion(foregroundTexture, 125, 50, 50, 50);
-		fireButton = new TextureRegion(foregroundTexture, 125, 50, 50, 50);
+		fireButton = new TextureRegion(foregroundTexture, 370, 50, 110, 50);
 		
 		squirrelRight = new TextureRegion(foregroundTexture, 0, 0, 123, 140);
 		squirrelLeft = new TextureRegion(foregroundTexture, 0, 140, 123, 140);

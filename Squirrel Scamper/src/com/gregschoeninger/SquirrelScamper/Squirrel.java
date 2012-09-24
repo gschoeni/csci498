@@ -32,5 +32,12 @@ public class Squirrel extends DynamicGameObject {
 		
 		this.position.y += VELOCITY_Y;
 	}
+	
+	public void fireAcorn(){
+		if(acorns.size() > 0){
+			//acorns.remove(acorns.size() -1 );
+			acorns.get(acorns.size() - 1).fire(this.position.y);
+		}
+	}
 
 }

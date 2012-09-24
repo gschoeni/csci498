@@ -76,6 +76,14 @@ public class WorldRenderer {
 			Acorn a = world.acorns.get(i);
 			batcher.drawSprite(a.position.x, a.position.y, Acorn.WIDTH, Acorn.HEIGHT, Assets.acorn);
 		}
+		
+		//render any acorns that are being fired
+//		for(int i = 0; i < world.squirrel.acorns.size(); i++){
+//			Acorn a = world.squirrel.acorns.get(i);
+//			if(a.firing){
+//				batcher.drawSprite(a.position.x, a.position.y, Acorn.WIDTH, Acorn.HEIGHT, Assets.acorn);
+//			}
+//		}
 	}
 
 	private void renderHoles(){
