@@ -6,6 +6,7 @@ public class Bird extends DynamicGameObject {
 	public static final float WIDTH = 2;
 	public static final float HEIGHT = 1.2f;
 	public static final float VELOCITY = 3f;
+	public static final int SCORE = -100;
 	
 	float stateTime = 0;
 	

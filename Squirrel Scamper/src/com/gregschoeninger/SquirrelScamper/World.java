@@ -41,7 +41,7 @@ public class World {
 				acorns.add(acorn);
 			}
 			
-			if (rand.nextFloat() < 0.1f) {
+			if (rand.nextFloat() < 0.05f) {
 				float x = rand.nextFloat() * (WORLD_WIDTH - Bird.WIDTH) + Bird.WIDTH / 2;
 				Bird bird = new Bird(x, y);
 				birds.add(bird);
@@ -75,13 +75,27 @@ public class World {
 	private void checkCollisions(){
 		for (int i = 0; i < acorns.size(); i++) {
 			Acorn a = acorns.get(i);
-			if (a.position.y > squirrel.position.y) {
-				if (OverlapTester.overlapRectangles(squirrel.bounds, a.bounds)) {
-					acorns.remove(i);
-					score += Acorn.SCORE;
-					break; 
+			if (OverlapTester.overlapRectangles(squirrel.bounds, a.bounds)) {
+				acorns.remove(i);
+				score += Acorn.SCORE;
+				break; 
+			}
+		}
+		
+		for (int i = 0; i < birds.size(); i++) {
+			Bird b = birds.get(i);
+			if (OverlapTester.overlapRectangles(squirrel.bounds, b.bounds)) {
+				birds.remove(i);
+				
+				//Bird.SCORE is negative
+				if(score >  Bird.SCORE * -1){
+					score += Bird.SCORE;
+				} else {
+					score = 0;
 				}
-			} 
+				
+				break; 
+			}
 		}
 	}
 	

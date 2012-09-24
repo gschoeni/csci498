@@ -2,7 +2,7 @@ package com.gregschoeninger.SquirrelScamper;
 
 import javax.microedition.khronos.opengles.GL10;
 
-
+import com.badlogic.androidgames.framework.gl.Animation;
 import com.badlogic.androidgames.framework.gl.Camera2D;
 import com.badlogic.androidgames.framework.gl.SpriteBatcher;
 import com.badlogic.androidgames.framework.impl.GLGraphics;
@@ -76,7 +76,7 @@ public class WorldRenderer {
 		for(int i = 0; i < world.birds.size(); i++){
 			Bird b = world.birds.get(i);
 			float side = b.velocity.x < 0 ? 1 : -1;
-			batcher.drawSprite(b.position.x, b.position.y, Bird.WIDTH * side, Bird.HEIGHT, Assets.bird);
+			batcher.drawSprite(b.position.x, b.position.y, Bird.WIDTH * side, Bird.HEIGHT, Assets.bird.getKeyFrame(b.stateTime, Animation.ANIMATION_LOOPING));
 		}
 	}
 	

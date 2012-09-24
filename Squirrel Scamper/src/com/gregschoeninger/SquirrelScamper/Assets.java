@@ -1,5 +1,6 @@
 package com.gregschoeninger.SquirrelScamper;
 
+import com.badlogic.androidgames.framework.gl.Animation;
 import com.badlogic.androidgames.framework.gl.Texture;
 import com.badlogic.androidgames.framework.gl.TextureRegion;
 import com.badlogic.androidgames.framework.impl.GLGame;
@@ -15,7 +16,9 @@ public class Assets {
 	public static TextureRegion squirrelRight;
 	public static TextureRegion squirrelLeft;
 	public static TextureRegion acorn;
-	public static TextureRegion bird;
+	
+	public static Animation bird;
+	
 	
 	public static TextureRegion readyText;
 	public static TextureRegion pauseButton;
@@ -33,7 +36,13 @@ public class Assets {
 		readyText = new TextureRegion(foregroundTexture, 125, 0, 175, 50);
 		pauseButton = new TextureRegion(foregroundTexture, 125, 50, 50, 50);
 		acorn = new TextureRegion(foregroundTexture, 125, 140, 40, 45);
-		bird = new TextureRegion(foregroundTexture, 165, 50, 190, 165);
+		
+		bird = new Animation(0.1f,
+				new TextureRegion(foregroundTexture, 165, 50, 190, 153), 
+				new TextureRegion(foregroundTexture, 165, 203, 190, 153), 
+				new TextureRegion(foregroundTexture, 165, 356, 190, 153), 
+				new TextureRegion(foregroundTexture, 165, 509, 190, 153));
+		
 		
 	}
 	
