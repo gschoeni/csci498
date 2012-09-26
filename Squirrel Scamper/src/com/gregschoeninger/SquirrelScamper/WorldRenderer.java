@@ -81,7 +81,6 @@ public class WorldRenderer {
 		for(int i = 0; i < world.squirrel.firingAcorns.size(); i++){
 			Acorn a = world.squirrel.firingAcorns.get(i);
 			if(a.firing){
-				a.update();
 				batcher.drawSprite(a.position.x, a.position.y, Acorn.WIDTH, Acorn.HEIGHT, Assets.acorn);
 			}
 		}

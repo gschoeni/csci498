@@ -1,21 +1,25 @@
 package com.gregschoeninger.SquirrelScamper;
 
+import android.util.Log;
+
 import com.badlogic.androidgames.framework.DynamicGameObject;
 
 public class Acorn extends DynamicGameObject {
 	public static final float WIDTH = 0.88f;
 	public static final float HEIGHT = 1.0f;
 	public static final int SCORE = 10;
-	public static final float FIRE_VELOCITY = 0.3f;
+	public static final float FIRE_VELOCITY = 0.7f;
 	public boolean firing = false;
 	
 	public Acorn(float x, float y){
 		super(x, y, WIDTH, HEIGHT);
 	}
 	
-	public void update(){
+	public void update(float deltaTime){
 		if(firing){
-			this.position.y += FIRE_VELOCITY;
+			velocity.y += FIRE_VELOCITY;
+			position.add(velocity.x, velocity.y*deltaTime); 
+			bounds.lowerLeft.set(position).sub(WIDTH / 2, HEIGHT / 2);
 		}
 	}
 	
@@ -23,6 +27,7 @@ public class Acorn extends DynamicGameObject {
 		firing = true;
 		this.position.x = x;
 		this.position.y = y;
+		Log.d("firing acorn:", "lower left y: "+this.position.y);
 	}
 
 }

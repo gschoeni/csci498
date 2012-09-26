@@ -66,6 +66,7 @@ public class World {
 		if(state == WORLD_STATE_RUNNING){
 			updateSquirrel(deltaTime, accelX);
 			updateBirds(deltaTime);
+			updateFiringAcorns(deltaTime);
 			checkCollisions();
 			checkRestart();
 		}
@@ -80,6 +81,18 @@ public class World {
 		for(int i = 0; i < birds.size(); i++){
 			Bird b = birds.get(i);
 			b.update(deltaTime);
+		}
+	}
+	
+	private void updateFiringAcorns(float deltaTime){
+		for(int i = 0; i < squirrel.firingAcorns.size(); i++){
+			Acorn a = squirrel.firingAcorns.get(i);
+			if(a.position.y < squirrel.position.y + 15){
+				a.update(deltaTime);
+			} else {
+				squirrel.firingAcorns.remove(i);
+			}
+			
 		}
 	}
 	
@@ -106,14 +119,7 @@ public class World {
 		for (int i = 0; i < birds.size(); i++) {
 			Bird b = birds.get(i);
 			if (OverlapTester.overlapRectangles(squirrel.bounds, b.bounds)) {
-				birds.remove(i);
-				
-				//Bird.SCORE is negative
-				if(score >  Bird.SCORE * -1){
-					score += Bird.SCORE;
-				} else {
-					score = 0;
-				}
+				restart(0);
 				
 				break; 
 			}
@@ -135,7 +141,10 @@ public class World {
 			Acorn a = squirrel.firingAcorns.get(i);
 			for (int j = 0; j < birds.size(); j++) {
 				Bird b = birds.get(j);
-				if (OverlapTester.overlapRectangles(a.bounds, b.bounds)) {
+
+				if (OverlapTester.overlapRectangles(b.bounds, a.bounds)) {
+					Log.d("bird", "bird x:"+b.bounds.lowerLeft.x+" bird y:"+b.bounds.lowerLeft.y);
+					Log.d("acorn", "acorn x:"+a.bounds.lowerLeft.x+" acorn y:"+a.bounds.lowerLeft.y);
 					birds.remove(j);
 					squirrel.firingAcorns.remove(i);
 					break;

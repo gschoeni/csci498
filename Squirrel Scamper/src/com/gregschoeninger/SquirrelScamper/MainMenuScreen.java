@@ -44,7 +44,6 @@ public class MainMenuScreen extends GLScreen {
 			
 			if(OverlapTester.pointInRectangle(playBounds, touchPoint)){
 				//Play Click Sound
-				Log.d("touch event", "overlap! "+touchPoint.x + " " + touchPoint.y);
 				game.setScreen(new GameScreen(game));
 				return;
 			}

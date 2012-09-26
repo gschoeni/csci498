@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import android.util.Log;
+
 import com.badlogic.androidgames.framework.DynamicGameObject;
 
 public class Squirrel extends DynamicGameObject {
@@ -40,7 +42,7 @@ public class Squirrel extends DynamicGameObject {
 			int i = acorns.size() - 1;
 			firingAcorns.add(new Acorn(acorns.get(i).position.x, acorns.get(i).position.y));
 			acorns.remove(i);
-			firingAcorns.get(0).fire(this.position.x, this.position.y);
+			firingAcorns.get(firingAcorns.size() - 1).fire(this.position.x, this.position.y);
 		}
 	}
 
