@@ -23,8 +23,10 @@ public class GameScreen extends GLScreen {
 	Vector2 touchPoint;
 	Rectangle pauseBounds;
 	Rectangle fireBounds;
+	Rectangle speedUpBounds;
 	Rectangle readyBounds;
 	BigInt lastScore;
+	BigInt numAcorns;
 
 	NumberRenderer numberRenderer;
 	
@@ -37,11 +39,13 @@ public class GameScreen extends GLScreen {
 		renderer = new WorldRenderer(glGraphics, batcher, world);
 		numberRenderer = new NumberRenderer(Assets.foregroundTexture, 300, 0, 35, 50);
 		
-		pauseBounds = new Rectangle(20, 400, 50, 50);
+		pauseBounds = new Rectangle(250, 420, 50, 50);
 		readyBounds = new Rectangle(0, 200, 320, 100);
 		fireBounds = new Rectangle(210, 0, 110, 100);
+		speedUpBounds = new Rectangle(0, 0, 110, 100);
 		
 		lastScore = new BigInt(0);
+		numAcorns = new BigInt(0);
 	}
 
 	@Override
@@ -82,8 +86,11 @@ public class GameScreen extends GLScreen {
 		int len = touchEvents.size();
 		for(int i = 0; i < len; i++){
 			TouchEvent event = touchEvents.get(i);
+			
+			//only recognize TOUCH UP and TOUCH DOWN events
 			if(event.type != TouchEvent.TOUCH_UP)
 				continue;
+			
 			touchPoint.set(event.x, event.y);
 			guiCam.touchToWorld(touchPoint);
 			
@@ -92,8 +99,16 @@ public class GameScreen extends GLScreen {
 				return;
 			}
 			
+			
 			if(OverlapTester.pointInRectangle(fireBounds, touchPoint)){
 				world.squirrel.fireAcorn();
+				return;
+			}
+			
+			
+			
+			if(OverlapTester.pointInRectangle(speedUpBounds, touchPoint)){
+				world.squirrel.speedUp();
 				return;
 			}
 		}
@@ -135,11 +150,7 @@ public class GameScreen extends GLScreen {
 	
 	private void presentRunning(){
 		//Draw the pause button
-		batcher.drawSprite(pauseBounds.lowerLeft.x+10, 
-							pauseBounds.lowerLeft.y + pauseBounds.height, 
-							pauseBounds.width, 
-							pauseBounds.height, 
-							Assets.pauseButton);
+		batcher.drawSprite(280, 440, 50, 50, Assets.pauseButton);
 		
 		//Draw the fire button
 		batcher.drawSprite(250, 
@@ -148,14 +159,25 @@ public class GameScreen extends GLScreen {
 							50, 
 							Assets.fireButton);
 		
+		//Draw the speed button
+		batcher.drawSprite(80, 
+							20, 
+							150, 
+							50, 
+							Assets.speedButton);
 		
-		//Draw the score
-		if(world.score != lastScore.intValue){
-			lastScore = new BigInt(world.squirrel.acorns.size()); 
+		
+//		if(world.score != lastScore.intValue){
+//			lastScore = new BigInt(world.score);
+//		}
+//		numberRenderer.drawNumber(batcher, lastScore, 20, 20);
+		
+		
+		if(world.squirrel.acorns.size() != numAcorns.intValue){
+			numAcorns = new BigInt(world.squirrel.acorns.size());
 		}
+		numberRenderer.drawNumber(batcher, numAcorns, 20, 440);
 		
-		
-		numberRenderer.drawNumber(batcher, lastScore, 20, 20);
 	}
 	
 	

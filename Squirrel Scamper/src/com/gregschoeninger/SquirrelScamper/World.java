@@ -143,8 +143,6 @@ public class World {
 				Bird b = birds.get(j);
 
 				if (OverlapTester.overlapRectangles(b.bounds, a.bounds)) {
-					Log.d("bird", "bird x:"+b.bounds.lowerLeft.x+" bird y:"+b.bounds.lowerLeft.y);
-					Log.d("acorn", "acorn x:"+a.bounds.lowerLeft.x+" acorn y:"+a.bounds.lowerLeft.y);
 					birds.remove(j);
 					squirrel.firingAcorns.remove(i);
 					break;

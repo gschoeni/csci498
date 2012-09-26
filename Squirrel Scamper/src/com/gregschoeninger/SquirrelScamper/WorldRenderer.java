@@ -41,7 +41,12 @@ public class WorldRenderer {
 	private void renderBackground(){
 		batcher.beginBatch(Assets.backgroundTexture);
 		if(world.state == World.WORLD_STATE_RUNNING){
-			background.update();
+			if(!world.squirrel.speeding){
+				background.update(world.squirrel.VELOCITY_Y);
+			} else {
+				background.update(world.squirrel.SPEEDING_VELOCITY_Y);
+			}
+			
 		}
 		
 		batcher.drawSprite(cam.position.x, cam.position.y+background.region1_y, FRUSTUM_WIDTH, FRUSTUM_HEIGHT, background.region1);
