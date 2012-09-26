@@ -3,9 +3,11 @@ package apt.tutorial;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -31,15 +33,16 @@ public class LunchList extends ListActivity {
 	private Restaurant current;
 	private RestaurantHelper helper;
 	public final static String ID_EXTRA = "apt.tutorial._ID";
-	
+	private SharedPreferences prefs;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lunch_list);
         
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
         helper = new RestaurantHelper(this);
-        restaurants = helper.getAll();
+        restaurants = helper.getAll(prefs.getString("sort_order", "name"));
         startManagingCursor(restaurants);
         restaurantsAdapter = new RestaurantAdapter(restaurants);
         setListAdapter(restaurantsAdapter);
