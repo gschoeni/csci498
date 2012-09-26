@@ -12,7 +12,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
@@ -195,6 +194,9 @@ public class LunchList extends ListActivity {
 	public boolean onOptionsItemSelected(MenuItem item){
 		if(item.getItemId() == R.id.add){
 			startActivity(new Intent(LunchList.this, DetailForm.class));
+			return true;
+		} else if(item.getItemId() == R.id.prefs){
+			startActivity(new Intent(this, EditPreferences.class));
 			return true;
 		}
 		
