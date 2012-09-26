@@ -4,6 +4,7 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -40,12 +41,22 @@ public class LunchList extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lunch_list);
         
-        prefs = PreferenceManager.getDefaultSharedPreferences(this);
         helper = new RestaurantHelper(this);
-        restaurants = helper.getAll(prefs.getString("sort_order", "name"));
-        startManagingCursor(restaurants);
-        restaurantsAdapter = new RestaurantAdapter(restaurants);
-        setListAdapter(restaurantsAdapter);
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        initList();
+        prefs.registerOnSharedPreferenceChangeListener(prefListener);
+    }
+    
+    private void initList(){
+    	if(restaurants != null){
+    		stopManagingCursor(restaurants);
+    		restaurants.close();
+    	}
+    	
+    	restaurants = helper.getAll(prefs.getString("sort_order",  "name"));
+    	startManagingCursor(restaurants);
+    	restaurantsAdapter = new RestaurantAdapter(restaurants);
+    	setListAdapter(restaurantsAdapter);
     }
     
     
@@ -206,6 +217,13 @@ public class LunchList extends ListActivity {
 		return super.onOptionsItemSelected(item);
 	}
 	
+	private SharedPreferences.OnSharedPreferenceChangeListener prefListener = new OnSharedPreferenceChangeListener(){
+		public void onSharedPreferenceChanged(SharedPreferences sharedPrefs, String key){
+			if(key.equals("sort_order")){
+				initList();
+			}
+		}
+	};
 
 	@Override
 	public void onDestroy(){
