@@ -62,7 +62,6 @@ public class Squirrel extends DynamicGameObject {
 			
 			//fire the acorn
 			Acorn acornToBeFired = firingAcorns.get(firingAcorns.size() - 1);
-			acornToBeFired.velocity.y = this.velocity.y;
 			acornToBeFired.fire(this.position.x, this.position.y+SQUIRREL_HEIGHT/2);
 		}
 	}
