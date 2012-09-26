@@ -65,10 +65,10 @@ public class WorldRenderer {
 	}
 	
 	private void renderSquirrel(){
-		if(world.squirrel.velocity.x < 0)
+		//if(world.squirrel.velocity.x < 0)
 			batcher.drawSprite(world.squirrel.position.x, world.squirrel.position.y, Squirrel.SQUIRREL_WIDTH, Squirrel.SQUIRREL_HEIGHT, Assets.squirrelLeft);
-		else 
-			batcher.drawSprite(world.squirrel.position.x, world.squirrel.position.y, Squirrel.SQUIRREL_WIDTH, Squirrel.SQUIRREL_HEIGHT, Assets.squirrelRight);
+		//else 
+			//batcher.drawSprite(world.squirrel.position.x, world.squirrel.position.y, Squirrel.SQUIRREL_WIDTH, Squirrel.SQUIRREL_HEIGHT, Assets.squirrelRight);
 	}
 	
 	private void renderAcorns(){

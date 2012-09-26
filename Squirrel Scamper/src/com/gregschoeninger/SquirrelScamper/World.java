@@ -37,7 +37,7 @@ public class World {
 	}
 	
 	private void generateWorld(){
-		float y = 3;
+		float y = 10;
 		
 		while(y < WORLD_HEIGHT){
 			if (rand.nextFloat() < 0.1f) {

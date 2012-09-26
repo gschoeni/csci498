@@ -39,7 +39,7 @@ public class GameScreen extends GLScreen {
 		
 		pauseBounds = new Rectangle(20, 400, 50, 50);
 		readyBounds = new Rectangle(0, 200, 320, 100);
-		fireBounds = new Rectangle(250, 20, 110, 50);
+		fireBounds = new Rectangle(210, 0, 110, 100);
 		
 		lastScore = new BigInt(0);
 	}
