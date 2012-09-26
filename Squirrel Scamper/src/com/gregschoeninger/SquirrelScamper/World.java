@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import android.util.Log;
+
 import com.badlogic.androidgames.framework.math.OverlapTester;
 
 public class World {
@@ -82,16 +84,25 @@ public class World {
 	}
 	
 	private void checkCollisions(){
+		checkSquirrelAcornCollisions();
+		checkBirdSquirrelCollisions();
+		checkSquirrelHoleCollisions();
+		checkFiringAcornBirdCollisions();
+	}
+	
+	private void checkSquirrelAcornCollisions(){
 		for (int i = 0; i < acorns.size(); i++) {
 			Acorn a = acorns.get(i);
 			if (OverlapTester.overlapRectangles(squirrel.bounds, a.bounds)) {
-				squirrel.acorns.add(a);
+				squirrel.acorns.add(new Acorn(squirrel.position.x, squirrel.position.y));
 				acorns.remove(i);
 				score += Acorn.SCORE;
 				break; 
 			}
 		}
-		
+	}
+	
+	private void checkBirdSquirrelCollisions(){
 		for (int i = 0; i < birds.size(); i++) {
 			Bird b = birds.get(i);
 			if (OverlapTester.overlapRectangles(squirrel.bounds, b.bounds)) {
@@ -107,12 +118,28 @@ public class World {
 				break; 
 			}
 		}
-		
+	}
+	
+	private void checkSquirrelHoleCollisions(){
 		for (int i = 0; i < holes.size(); i++) {
 			Hole h = holes.get(i);
 			if (OverlapTester.overlapRectangles(squirrel.bounds, h.bounds)) {
 				restart(0);
 				break; 
+			}
+		}
+	}
+	
+	private void checkFiringAcornBirdCollisions(){
+		for (int i = 0; i < squirrel.firingAcorns.size(); i++) {
+			Acorn a = squirrel.firingAcorns.get(i);
+			for (int j = 0; j < birds.size(); j++) {
+				Bird b = birds.get(j);
+				if (OverlapTester.overlapRectangles(a.bounds, b.bounds)) {
+					birds.remove(j);
+					squirrel.firingAcorns.remove(i);
+					break;
+				}
 			}
 		}
 	}

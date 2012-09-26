@@ -78,12 +78,13 @@ public class WorldRenderer {
 		}
 		
 		//render any acorns that are being fired
-//		for(int i = 0; i < world.squirrel.acorns.size(); i++){
-//			Acorn a = world.squirrel.acorns.get(i);
-//			if(a.firing){
-//				batcher.drawSprite(a.position.x, a.position.y, Acorn.WIDTH, Acorn.HEIGHT, Assets.acorn);
-//			}
-//		}
+		for(int i = 0; i < world.squirrel.firingAcorns.size(); i++){
+			Acorn a = world.squirrel.firingAcorns.get(i);
+			if(a.firing){
+				a.update();
+				batcher.drawSprite(a.position.x, a.position.y, Acorn.WIDTH, Acorn.HEIGHT, Assets.acorn);
+			}
+		}
 	}
 
 	private void renderHoles(){

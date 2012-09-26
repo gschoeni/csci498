@@ -1,6 +1,5 @@
 package com.gregschoeninger.SquirrelScamper;
 
-import android.util.Log;
 
 import com.badlogic.androidgames.framework.gl.TextureRegion;
 
@@ -24,9 +23,6 @@ public class Background {
 	public void update(){
 		region1_y -= velocity;
 		region2_y -= velocity;
-		
-		Log.d("region 1", "" + region1_y);
-		Log.d("region 2", "" + region2_y);
 		
 		if(region1_y < -HEIGHT){
 			region1_y = HEIGHT;

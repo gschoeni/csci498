@@ -13,10 +13,12 @@ public class Squirrel extends DynamicGameObject {
 	public final float VELOCITY_Y = 0.08f;
 	
 	public List<Acorn> acorns;
+	public List<Acorn> firingAcorns;
 	
 	public Squirrel(float x, float y) {
 		super(x, y, SQUIRREL_WIDTH, SQUIRREL_HEIGHT);
 		this.acorns = new ArrayList<Acorn>();
+		this.firingAcorns = new ArrayList<Acorn>();
 	}
 	
 	public void update(float deltaTime){
@@ -35,8 +37,10 @@ public class Squirrel extends DynamicGameObject {
 	
 	public void fireAcorn(){
 		if(acorns.size() > 0){
-			//acorns.remove(acorns.size() -1 );
-			acorns.get(acorns.size() - 1).fire(this.position.y);
+			int i = acorns.size() - 1;
+			firingAcorns.add(new Acorn(acorns.get(i).position.x, acorns.get(i).position.y));
+			acorns.remove(i);
+			firingAcorns.get(0).fire(this.position.x, this.position.y);
 		}
 	}
 
