@@ -32,16 +32,22 @@
           android:text="@string/delivery"
         />
       </RadioGroup>
-      <TextView android:text="@string/notes_label" />
       <LinearLayout android:orientation="vertical">
         <EditText android:id="@+id/notes"
           android:inputType="textMultiLine"
           android:gravity="top"
           android:lines="2"
-            android:scrollHorizontally="false"
+          android:scrollHorizontally="false"
           android:maxLines="2"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
+          android:hint="@string/notes_hint"
+        />
+        <EditText android:id="@+id/feed"
+          android:inputType="text"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:hint="@string/feed_url_hint"
         />
         <Button android:id="@+id/save"
           android:layout_width="match_parent"
