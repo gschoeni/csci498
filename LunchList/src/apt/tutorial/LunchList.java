@@ -219,6 +219,11 @@ public class LunchList extends ListActivity {
 			}
 		}
 	};
+	
+	@Override
+	public void onSaveInstanceState(Bundle state){
+		super.onSaveInstanceState(state);
+	}
 
 	@Override
 	public void onDestroy(){
