@@ -105,6 +105,15 @@ public class DetailForm extends Activity {
 	}
     
     @Override
+    public void onRestoreInstanceState(Bundle state){
+    	super.onRestoreInstanceState(state);
+    	name.setText(state.getString("name"));
+    	address.setText(state.getString("adderss"));
+    	notes.setText(state.getString("notes"));
+    	types.check(state.getInt("type"));
+    }
+    
+    @Override
     public void onDestroy(){
     	super.onDestroy();
     	helper.close();
