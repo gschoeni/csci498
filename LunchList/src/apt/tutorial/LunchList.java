@@ -27,11 +27,6 @@ public class LunchList extends ListActivity {
 	
 	private Cursor restaurants;
 	private CursorAdapter restaurantsAdapter;
-	private RadioGroup types;
-	private EditText name;
-	private AutoCompleteTextView address;
-	private EditText notes;
-	private Restaurant current;
 	private RestaurantHelper helper;
 	public final static String ID_EXTRA = "apt.tutorial._ID";
 	private SharedPreferences prefs;
