@@ -3,6 +3,8 @@ package apt.tutorial;
 import android.app.Activity;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -114,6 +116,12 @@ public class DetailForm extends Activity {
     	address.setText(state.getString("adderss"));
     	notes.setText(state.getString("notes"));
     	types.check(state.getInt("type"));
+    }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+    	new MenuInflater(this).inflate(R.menu.details_option, menu); 
+    	return super.onCreateOptionsMenu(menu);
     }
     
     @Override
