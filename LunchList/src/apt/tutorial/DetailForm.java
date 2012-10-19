@@ -3,6 +3,9 @@ package apt.tutorial;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -27,6 +30,7 @@ public class DetailForm extends Activity {
 	private Restaurant current;
 	private String addresses[] = { "Golden", "Boulder", "Denver", "Arvada", "Colorado"};
 	String restaurantId;
+	LocationManager locMan;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -34,6 +38,7 @@ public class DetailForm extends Activity {
 		setContentView(R.layout.detail_form);
 		
 		helper = new RestaurantHelper(this);
+		LocationManager locMan = (LocationManager) getSystemService(LOCATION_SERVICE);
         initUI();
         
         restaurantId = getIntent().getStringExtra(LunchList.ID_EXTRA);
@@ -129,8 +134,8 @@ public class DetailForm extends Activity {
     }
     
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
-    	if(item.getItemId() == R.id.feed){
+    public boolean onOptionsItemSelected(MenuItem item) {
+    	if (item.getItemId() == R.id.feed) {
     		if(isNetworkAvailable()){
     			Intent i = new Intent(this, FeedActivity.class);
         		i.putExtra(FeedActivity.FEED_URL, feed.getText().toString());
@@ -140,9 +145,29 @@ public class DetailForm extends Activity {
     		}
     		
     		return true;
-    	} 
+    	} else if (item.getItemId() == R.id.location) {
+    		locMan.requestLocationUpdates(LocationManager.GPS_PROVIDER,  0, 0, onLocationChange);
+    	}
     	return super.onOptionsItemSelected(item);
     }
+    
+    LocationListener onLocationChange = new LocationListener() {
+    	public void onLocationChanged(Location fix) {
+    		helper.updateLocation(restaurantId, fix.getLatitude(), fix.getLongitude());
+    		location.setText(String.valueOf(fix.getLatitude()) + ", " + fix.getLongitude());
+    		locMan.removeUpdates(onLocationChange);
+    		Toast.makeText(DetailForm.this, "Location saved", Toast.LENGTH_LONG).show();
+    	}
+
+		@Override
+		public void onProviderDisabled(String arg0) { }
+
+		@Override
+		public void onProviderEnabled(String arg0) { }
+
+		@Override
+		public void onStatusChanged(String arg0, int arg1, Bundle arg2) { }
+    };
     
     private boolean isNetworkAvailable(){
     	ConnectivityManager cm = (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
@@ -153,6 +178,7 @@ public class DetailForm extends Activity {
     @Override
     public void onPause() {
     	save();
+    	locMan.removeUpdates(onLocationChange);
     	super.onPause();
     }
     
