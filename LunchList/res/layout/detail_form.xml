@@ -27,7 +27,12 @@
 	        <RadioButton android:id="@+id/delivery"
 	            		android:text="@string/delivery"	 />
 	       </RadioGroup>
-	     </TableRow>
+	    </TableRow>
+	    <TableRow>
+	      <TextView android:text="@string/location_label" />
+	      <TextView android:id="@+id/location"
+	          		android:text="(not set)" />
+	    </TableRow>
 		<EditText android:id="@+id/notes"
 		  android:inputType="textMultiLine"
 		  android:gravity="top"
@@ -37,9 +42,5 @@
 		  android:maxLines="2"/>
 		<EditText android:id="@+id/feed"
 		  android:hint="@string/feed_url_hint"/>
-	    <Button android:id="@+id/save"
-	      android:layout_width="match_parent"
-	      android:layout_height="wrap_content"
-	      android:text="@string/save_button"/>
     </TableLayout>
 </ScrollView>

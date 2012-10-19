@@ -12,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -29,7 +28,7 @@ public class DetailForm extends Activity {
 	String restaurantId;
 	
 	@Override
-	public void onCreate(Bundle savedInstanceState){
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.detail_form);
 		
@@ -41,11 +40,8 @@ public class DetailForm extends Activity {
         notes = (EditText) findViewById(R.id.notes);
         feed = (EditText) findViewById(R.id.feed);
         
-        Button save = (Button)findViewById(R.id.save); 
-        save.setOnClickListener(onSave);
-        
         restaurantId = getIntent().getStringExtra(LunchList.ID_EXTRA);
-        if(restaurantId != null){
+        if (restaurantId != null) {
         	load();
         }
 	}
@@ -69,41 +65,37 @@ public class DetailForm extends Activity {
 		c.close();
 	}
 	
-	private View.OnClickListener onSave = new View.OnClickListener() {
-    	
-    	public void onClick(View v) {
-    		current = new Restaurant();
-    		
-    		current.setName(name.getText().toString());
-    		current.setAddress(address.getText().toString()); 
+	private void save() {
+		if (name.getText().toString().length() > 0) {
+			current = new Restaurant();
+			
+			current.setName(name.getText().toString());
+			current.setAddress(address.getText().toString()); 
 	    	setRestaurantType(types, current);
 	    	current.setNotes(notes.getText().toString()); 
 	    	
-	    	if(restaurantId == null){
+	    	if (restaurantId == null) {
 	    		helper.insert(name.getText().toString(), address.getText().toString(), current.getType(), notes.getText().toString(), feed.getText().toString());
 	    	} else {
 	    		helper.update(restaurantId, name.getText().toString(), address.getText().toString(), current.getType(), notes.getText().toString(), feed.getText().toString());
 	    	}
-	    	
-	    	finish();
-	    	
-	    }
-    	
-    	public void setRestaurantType(RadioGroup types, Restaurant r){
-    		switch(types.getCheckedRadioButtonId()){
-		    	case R.id.delivery:
-		    		r.setType("delivery");
-		    		break;
-		    	case R.id.sit_down:
-		    		r.setType("sit_down");
-		    		break;
-		    	case R.id.take_out:
-		    		r.setType("take_out");
-		    		break;
-	    	}
+		}
+    }
+	
+	private void setRestaurantType(RadioGroup types, Restaurant r){
+		switch (types.getCheckedRadioButtonId()) {
+	    	case R.id.delivery:
+	    		r.setType("delivery");
+	    		break;
+	    	case R.id.sit_down:
+	    		r.setType("sit_down");
+	    		break;
+	    	case R.id.take_out:
+	    		r.setType("take_out");
+	    		break;
     	}
-    };
-    
+	}
+    	
     @Override
 	public void onSaveInstanceState(Bundle state){
 		super.onSaveInstanceState(state);
@@ -149,6 +141,12 @@ public class DetailForm extends Activity {
     	ConnectivityManager cm = (ConnectivityManager)getSystemService(CONNECTIVITY_SERVICE);
     	NetworkInfo info = cm.getActiveNetworkInfo();
     	return info != null;
+    }
+    
+    @Override
+    public void onPause() {
+    	save();
+    	super.onPause();
     }
     
     @Override

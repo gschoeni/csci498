@@ -10,6 +10,7 @@
     <string name="address_label">Address: </string>
     <string name="type_label">Type: </string>
     <string name="notes_label">Notes: </string>
+    <string name="location_label">Location: </string>
     
     <string name="notes_hint">Notes </string>
     <string name="feed_url_hint">Feed URL </string>
