@@ -38,7 +38,7 @@ public class DetailForm extends Activity {
 		setContentView(R.layout.detail_form);
 		
 		helper = new RestaurantHelper(this);
-		LocationManager locMan = (LocationManager) getSystemService(LOCATION_SERVICE);
+		locMan = (LocationManager) getSystemService(LOCATION_SERVICE);
         initUI();
         
         restaurantId = getIntent().getStringExtra(LunchList.ID_EXTRA);
@@ -131,6 +131,14 @@ public class DetailForm extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
     	new MenuInflater(this).inflate(R.menu.details_option, menu); 
     	return super.onCreateOptionsMenu(menu);
+    }
+    
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+    	if (restaurantId == null) {
+    		menu.findItem(R.id.location).setEnabled(false);
+    	}
+    	return super.onPrepareOptionsMenu(menu);
     }
     
     @Override
