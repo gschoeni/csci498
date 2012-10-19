@@ -9,11 +9,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class DetailForm extends Activity {
@@ -22,6 +22,7 @@ public class DetailForm extends Activity {
 	private AutoCompleteTextView address;
 	private EditText notes;
 	private EditText feed;
+	private TextView location;
 	private RestaurantHelper helper;
 	private Restaurant current;
 	private String addresses[] = { "Golden", "Boulder", "Denver", "Arvada", "Colorado"};
@@ -33,17 +34,22 @@ public class DetailForm extends Activity {
 		setContentView(R.layout.detail_form);
 		
 		helper = new RestaurantHelper(this);
-        types = (RadioGroup) findViewById(R.id.types);
-        name = (EditText) findViewById(R.id.name); 
-        address = (AutoCompleteTextView) findViewById(R.id.address);
-        address.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, addresses));
-        notes = (EditText) findViewById(R.id.notes);
-        feed = (EditText) findViewById(R.id.feed);
+        initUI();
         
         restaurantId = getIntent().getStringExtra(LunchList.ID_EXTRA);
         if (restaurantId != null) {
         	load();
         }
+	}
+	
+	private void initUI() {
+		types = (RadioGroup) findViewById(R.id.types);
+        name = (EditText) findViewById(R.id.name); 
+        address = (AutoCompleteTextView) findViewById(R.id.address);
+        address.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, addresses));
+        notes = (EditText) findViewById(R.id.notes);
+        feed = (EditText) findViewById(R.id.feed);
+        location = (TextView) findViewById(R.id.location);
 	}
 	
 	private void load() {
@@ -62,6 +68,7 @@ public class DetailForm extends Activity {
 		} else { 
 			types.check(R.id.delivery);
 		}
+		location.setText(String.valueOf(helper.getLatitude(c)) + ", " + String.valueOf(helper.getLongitude(c)));
 		c.close();
 	}
 	
