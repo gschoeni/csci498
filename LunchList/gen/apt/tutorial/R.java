@@ -26,9 +26,10 @@ public final class R {
         public static final int ic_menu_mapmode=0x7f020008;
         public static final int ic_menu_preferences=0x7f020009;
         public static final int list=0x7f02000a;
-        public static final int restaurant=0x7f02000b;
-        public static final int run=0x7f02000c;
-        public static final int toast=0x7f02000d;
+        public static final int map_pin=0x7f02000b;
+        public static final int restaurant=0x7f02000c;
+        public static final int run=0x7f02000d;
+        public static final int toast=0x7f02000e;
     }
     public static final class id {
         public static final int add=0x7f09000d;
