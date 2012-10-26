@@ -2,6 +2,7 @@ package apt.tutorial;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
@@ -27,7 +28,7 @@ public class RestaurantMap extends MapActivity {
 		
 		map = (MapView)findViewById(R.id.map);
 		
-		map.getController().setZoom(17);
+		map.getController().setZoom(10);
 		
 		GeoPoint status = new GeoPoint((int)(lat*1000000.0), (int)(lon*1000000.0));
 		
@@ -59,6 +60,12 @@ public class RestaurantMap extends MapActivity {
 		@Override
 		public int size() {
 			return 1;
+		}
+		
+		@Override
+		protected boolean onTap(int i) {
+			Toast.makeText(RestaurantMap.this, item.getSnippet(), Toast.LENGTH_SHORT);
+			return true;
 		}
 	}
 
