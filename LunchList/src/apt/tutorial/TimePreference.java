@@ -68,7 +68,7 @@ public class TimePreference extends DialogPreference {
 	protected void onSetInitialValue(boolean restoreValue, Object defaultValue) {
 		String time = null;
 		if (restoreValue) {
-			if (defaultValue) {
+			if (defaultValue == null) {
 				time = getPersistedString("00:00");
 			} else {
 				time = getPersistedString(defaultValue.toString());

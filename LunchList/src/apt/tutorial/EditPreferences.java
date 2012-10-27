@@ -1,6 +1,6 @@
 package apt.tutorial;
 
-import andoird.app.Activity;
+import android.app.Activity;
 import android.content.ComponentName;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
