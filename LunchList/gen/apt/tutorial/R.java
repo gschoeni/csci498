@@ -70,6 +70,7 @@ public final class R {
         public static final int address_label=0x7f060005;
         public static final int app_name=0x7f060000;
         public static final int delivery=0x7f060003;
+        public static final int empty=0x7f06000f;
         public static final int feed_url_hint=0x7f06000b;
         public static final int location_label=0x7f060008;
         public static final int menu_settings=0x7f06000d;
