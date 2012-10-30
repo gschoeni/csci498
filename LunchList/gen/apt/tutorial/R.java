@@ -29,7 +29,8 @@ public final class R {
         public static final int map_pin=0x7f02000b;
         public static final int restaurant=0x7f02000c;
         public static final int run=0x7f02000d;
-        public static final int toast=0x7f02000e;
+        public static final int stat_notify_chat=0x7f02000e;
+        public static final int toast=0x7f02000f;
     }
     public static final class id {
         public static final int add=0x7f09000d;
