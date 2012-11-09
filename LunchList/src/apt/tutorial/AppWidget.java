@@ -27,7 +27,7 @@ public class AppWidget extends AppWidgetProvider {
 			svcIntent.setData(Uri.parse(svcIntent.toUri(Intent.URI_INTENT_SCHEME)));
 			RemoteViews widget = new RemoteViews(ctxt.getPackageName(), R.layout.widget);
 			widget.setRemoteAdapter(appWidgetIds[i], R.id.restaurants, svcIntent);
-			Intent clickIntent = new Intent(ctxt, DetailForm.class);
+			Intent clickIntent = new Intent(ctxt, DetailFragment.class);
 			PendingIntent clickPI = PendingIntent.getActivity(ctxt, 0, clickIntent, PendingIntent.FLAG_UPDATE_CURRENT); 
 			widget.setPendingIntentTemplate(R.id.restaurants, clickPI);
 			appWidgetManager.updateAppWidget(appWidgetIds[i], widget); 

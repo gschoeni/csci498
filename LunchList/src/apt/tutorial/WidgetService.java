@@ -35,7 +35,7 @@ public class WidgetService extends IntentService {
 				c.moveToFirst();
 				updateViews.setTextViewText(R.id.name, c.getString(1));
 				
-				Intent i = new Intent(this, DetailForm.class);
+				Intent i = new Intent(this, DetailFragment.class);
 				i.putExtra(LunchFragment.ID_EXTRA, c.getString(0));
 				PendingIntent pi = PendingIntent.getActivity(this, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
 				updateViews.setOnClickPendingIntent(R.id.name, pi);
