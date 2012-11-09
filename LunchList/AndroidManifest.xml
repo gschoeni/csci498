@@ -18,7 +18,7 @@
         android:theme="@style/AppTheme" >
         <uses-library android:name="com.google.android.maps" android:required="true"/>
         <activity
-            android:name=".LunchList"
+            android:name=".LunchFragment"
             android:label="@string/title_activity_lunch_list" 
             android:configChanges="orientation|keyboardHidden">
             <intent-filter>

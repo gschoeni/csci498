@@ -48,7 +48,7 @@ public class ListViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 		
 		Intent i = new Intent();
 		Bundle extras = new Bundle();
-		extras.putString(LunchList.ID_EXTRA, String.valueOf(restaurants.getInt(0)));
+		extras.putString(LunchFragment.ID_EXTRA, String.valueOf(restaurants.getInt(0)));
 		i.putExtras(extras);
 		
 		row.setOnClickFillInIntent(android.R.id.text1, i);

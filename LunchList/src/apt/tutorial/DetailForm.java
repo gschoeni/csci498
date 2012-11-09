@@ -43,7 +43,7 @@ public class DetailForm extends Activity {
 		locMan = (LocationManager) getSystemService(LOCATION_SERVICE);
         initUI();
         
-        restaurantId = getIntent().getStringExtra(LunchList.ID_EXTRA);
+        restaurantId = getIntent().getStringExtra(LunchFragment.ID_EXTRA);
         if (restaurantId != null) {
         	load();
         }
