@@ -24,6 +24,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class DetailFragment extends Fragment {
+	
+	private static final String ARG_REST_ID = "apt.tutorial.ARG_REST_ID";
 	private RadioGroup types;
 	private EditText name;
 	private AutoCompleteTextView address;
@@ -44,17 +46,6 @@ public class DetailFragment extends Fragment {
 	}
 	
 	@Override
-	public void onResume() {
-		super.onResume();
-		helper = new RestaurantHelper(getActivity());
-        
-        restaurantId = getActivity().getIntent().getStringExtra(LunchFragment.ID_EXTRA);
-        if (restaurantId != null) {
-        	load();
-        }
-	}
-	
-	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
     	return inflater.inflate(R.layout.detail_form, container, false);
     }
@@ -63,6 +54,36 @@ public class DetailFragment extends Fragment {
 		super.onActivityCreated(savedInstanceState);
 		locMan = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 		initUI();
+		Bundle args = getArguments();
+		if (args != null) {
+			loadRestaurant(args.getString(ARG_REST_ID));
+		}
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		
+        restaurantId = getActivity().getIntent().getStringExtra(LunchFragment.ID_EXTRA);
+        if (restaurantId != null) {
+        	load();
+        }
+	}
+	
+	private RestaurantHelper getHelper() {
+		if (helper == null) {
+			helper = new RestaurantHelper(getActivity());
+		}
+		
+		return helper;
+	}
+	
+	public void loadRestaurant(String restaurantId) {
+		this.restaurantId = restaurantId;
+		
+		if (restaurantId != null) {
+			load();
+		}
 	}
 	
 	private void initUI() {
@@ -76,24 +97,24 @@ public class DetailFragment extends Fragment {
 	}
 	
 	private void load() {
-		Cursor c = helper.getById(restaurantId);
+		Cursor c = getHelper().getById(restaurantId);
 		
 		c.moveToFirst();
-		name.setText(helper.getName(c));
-		address.setText(helper.getAddress(c));
-		notes.setText(helper.getNotes(c));
-		feed.setText(helper.getFeed(c));
+		name.setText(getHelper().getName(c));
+		address.setText(getHelper().getAddress(c));
+		notes.setText(getHelper().getNotes(c));
+		feed.setText(getHelper().getFeed(c));
 		
-		if (helper.getType(c).equals("sit_down")) { 
+		if (getHelper().getType(c).equals("sit_down")) { 
 			types.check(R.id.sit_down);
-		} else if (helper.getType(c).equals("take_out")) {
+		} else if (getHelper().getType(c).equals("take_out")) {
 			types.check(R.id.take_out); 
 		} else { 
 			types.check(R.id.delivery);
 		}
 		
-		latitude = helper.getLatitude(c);
-		longitude = helper.getLongitude(c);
+		latitude = getHelper().getLatitude(c);
+		longitude = getHelper().getLongitude(c);
 		location.setText(String.valueOf(latitude) + ", " + String.valueOf(longitude));
 		c.close();
 	}
@@ -108,9 +129,9 @@ public class DetailFragment extends Fragment {
 	    	current.setNotes(notes.getText().toString()); 
 	    	
 	    	if (restaurantId == null) {
-	    		helper.insert(name.getText().toString(), address.getText().toString(), current.getType(), notes.getText().toString(), feed.getText().toString());
+	    		getHelper().insert(name.getText().toString(), address.getText().toString(), current.getType(), notes.getText().toString(), feed.getText().toString());
 	    	} else {
-	    		helper.update(restaurantId, name.getText().toString(), address.getText().toString(), current.getType(), notes.getText().toString(), feed.getText().toString());
+	    		getHelper().update(restaurantId, name.getText().toString(), address.getText().toString(), current.getType(), notes.getText().toString(), feed.getText().toString());
 	    	}
 		}
     }
@@ -182,7 +203,7 @@ public class DetailFragment extends Fragment {
     
     LocationListener onLocationChange = new LocationListener() {
     	public void onLocationChanged(Location fix) {
-    		helper.updateLocation(restaurantId, fix.getLatitude(), fix.getLongitude());
+    		getHelper().updateLocation(restaurantId, fix.getLatitude(), fix.getLongitude());
     		location.setText(String.valueOf(fix.getLatitude()) + ", " + fix.getLongitude());
     		locMan.removeUpdates(onLocationChange);
     		Toast.makeText(getActivity(), "Location saved", Toast.LENGTH_LONG).show();
@@ -204,10 +225,20 @@ public class DetailFragment extends Fragment {
     	return info != null;
     }
     
+    public static DetailFragment newInstance(long id) {
+    	DetailFragment result = new DetailFragment();
+    	Bundle args = new Bundle();
+    	
+    	args.putString(ARG_REST_ID, String.valueOf(id));
+    	result.setArguments(args);
+    	
+    	return result;
+    }
+    
     @Override
     public void onPause() {
     	save();
-    	helper.close();
+    	getHelper().close();
     	locMan.removeUpdates(onLocationChange);
     	super.onPause();
     }

@@ -108,7 +108,7 @@ public class LunchFragment extends ListFragment {
 		super.onDestroy();
 	}
 	
-	 private static class RestaurantHolder {
+	private static class RestaurantHolder {
    	  protected TextView name;
    	  protected TextView address;
    	  protected ImageView icon;
@@ -164,74 +164,74 @@ public class LunchFragment extends ListFragment {
    }
    
    private class RestaurantAdapter extends CursorAdapter {
+	   
+	   	private static final int DELIVERY_TYPE = 0;
+	   	private static final int SIT_DOWN_TYPE = 1;
+	   	private static final int TAKEOUT_TYPE = 2;
+	   	
+	   	RestaurantAdapter(Cursor c) {
+	   		super(getActivity(), c);
+	   	} 
+	   	
+	   	@Override
+	   	public void bindView(View row, Context cxt, Cursor c){
+	   		RestaurantHolder holder = (RestaurantHolder)row.getTag();
+	   		holder.populateFrom(c, helper);
+	   	}
+	   	
+	   	@Override
+	   	public View newView(Context ctx, Cursor c, ViewGroup parent){
+	   		LayoutInflater inflater = getActivity().getLayoutInflater();
+	   		View row = inflater.inflate(R.layout.row, parent, false);
+	   		RestaurantHolder holder = new RestaurantHolder(row);
+	   		row.setTag(holder);
+	   		return row;
+	   	}
+	   	
+	   	public View getView(int position, View convertView, ViewGroup parent){
+	   		View row = convertView;
+	   		RestaurantHolder holder;
+	   		if (row == null) {
+	   			LayoutInflater inflater = getActivity().getLayoutInflater();
+	   			row = inflater.inflate(R.layout.row, parent, false); 
+	   			int type = getItemViewType(position);
+	   			
+	   			switch(type){
+		    			case DELIVERY_TYPE:
+		    				holder = new DeliveryHolder(row); 
+		    				break;
+		    			case SIT_DOWN_TYPE:
+		    				holder = new SitDownHolder(row); 
+		    				break;
+		    			case TAKEOUT_TYPE:
+		    				holder = new TakeOutHolder(row); 
+		    				break;
+		    			default:
+		    				holder = new TakeOutHolder(row);
+		    				break;
+	   			}
+	   			
+	   			row.setTag(holder);
+	   		} else {
+	   			holder = (RestaurantHolder)row.getTag(); 
+	   		}
+	   		
+	   		holder.populateFrom(restaurants, helper); 
+	   		return row;
+	   	}
    	
-   	private static final int DELIVERY_TYPE = 0;
-   	private static final int SIT_DOWN_TYPE = 1;
-   	private static final int TAKEOUT_TYPE = 2;
-   	
-   	RestaurantAdapter(Cursor c) {
-   		super(getActivity(), c);
-   	} 
-   	
-   	@Override
-   	public void bindView(View row, Context cxt, Cursor c){
-   		RestaurantHolder holder = (RestaurantHolder)row.getTag();
-   		holder.populateFrom(c, helper);
-   	}
-   	
-   	@Override
-   	public View newView(Context ctx, Cursor c, ViewGroup parent){
-   		LayoutInflater inflater = getActivity().getLayoutInflater();
-   		View row = inflater.inflate(R.layout.row, parent, false);
-   		RestaurantHolder holder = new RestaurantHolder(row);
-   		row.setTag(holder);
-   		return row;
-   	}
-   	
-   	public View getView(int position, View convertView, ViewGroup parent){
-   		View row = convertView;
-   		RestaurantHolder holder;
-   		if (row == null) {
-   			LayoutInflater inflater = getActivity().getLayoutInflater();
-   			row = inflater.inflate(R.layout.row, parent, false); 
-   			int type = getItemViewType(position);
-   			
-   			switch(type){
-	    			case DELIVERY_TYPE:
-	    				holder = new DeliveryHolder(row); 
-	    				break;
-	    			case SIT_DOWN_TYPE:
-	    				holder = new SitDownHolder(row); 
-	    				break;
-	    			case TAKEOUT_TYPE:
-	    				holder = new TakeOutHolder(row); 
-	    				break;
-	    			default:
-	    				holder = new TakeOutHolder(row);
-	    				break;
-   			}
-   			
-   			row.setTag(holder);
-   		} else {
-   			holder = (RestaurantHolder)row.getTag(); 
-   		}
-   		
-   		holder.populateFrom(restaurants, helper); 
-   		return row;
-   	}
-   	
-   	@Override
-       public int getItemViewType(int position) {
-   		restaurants.moveToPosition(position);
-   		Log.d("fkjlsa", "Type is: "+ helper.getType(restaurants));
-   		if(helper.getType(restaurants).equals("sit_down")){
-   			return SIT_DOWN_TYPE;
-   		} else if(helper.getType(restaurants).equals("delivery")){
-   			return DELIVERY_TYPE;
-   		} else {
-   			return TAKEOUT_TYPE;
-   		}
-       }
+	   	@Override
+	    public int getItemViewType(int position) {
+	   		restaurants.moveToPosition(position);
+	   		Log.d("fkjlsa", "Type is: "+ helper.getType(restaurants));
+	   		if(helper.getType(restaurants).equals("sit_down")){
+	   			return SIT_DOWN_TYPE;
+	   		} else if(helper.getType(restaurants).equals("delivery")){
+	   			return DELIVERY_TYPE;
+	   		} else {
+	   			return TAKEOUT_TYPE;
+	   		}
+	    }
 
        @Override
        public int getViewTypeCount() {
