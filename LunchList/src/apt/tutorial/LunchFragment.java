@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -78,7 +79,7 @@ public class LunchFragment extends ListFragment {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item){
 		if(item.getItemId() == R.id.add){
-			startActivity(new Intent(getActivity(), DetailFragment.class));
+			startActivity(new Intent(getActivity(), DetailForm.class));
 			return true;
 		} else if(item.getItemId() == R.id.prefs){
 			startActivity(new Intent(getActivity(), EditPreferences.class));
@@ -194,6 +195,7 @@ public class LunchFragment extends ListFragment {
    			LayoutInflater inflater = getActivity().getLayoutInflater();
    			row = inflater.inflate(R.layout.row, parent, false); 
    			int type = getItemViewType(position);
+   			
    			switch(type){
 	    			case DELIVERY_TYPE:
 	    				holder = new DeliveryHolder(row); 
@@ -221,7 +223,7 @@ public class LunchFragment extends ListFragment {
    	@Override
        public int getItemViewType(int position) {
    		restaurants.moveToPosition(position);
-   		
+   		Log.d("fkjlsa", "Type is: "+ helper.getType(restaurants));
    		if(helper.getType(restaurants).equals("sit_down")){
    			return SIT_DOWN_TYPE;
    		} else if(helper.getType(restaurants).equals("delivery")){

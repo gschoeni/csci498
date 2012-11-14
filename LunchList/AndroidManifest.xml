@@ -18,7 +18,7 @@
         android:theme="@style/AppTheme" >
         <uses-library android:name="com.google.android.maps" android:required="true"/>
         <activity
-            android:name=".LunchFragment"
+            android:name=".LunchList"
             android:label="@string/title_activity_lunch_list" 
             android:configChanges="orientation|keyboardHidden">
             <intent-filter>
@@ -26,7 +26,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DetailFragment"></activity>
+        <activity android:name=".DetailForm"></activity>
         <activity android:name=".EditPreferences"></activity>
         <activity android:name=".FeedActivity"></activity>
         <activity android:name=".RestaurantMap"></activity>
