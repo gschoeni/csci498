@@ -43,6 +43,7 @@ public class DetailFragment extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setHasOptionsMenu(true);
 	}
 	
 	@Override
@@ -196,6 +197,8 @@ public class DetailFragment extends Fragment {
     		
     		startActivity(i);
     		return true;
+    	} else if (item.getItemId() == R.id.help) {
+    		startActivity(new Intent(getActivity(), HelpPage.class));
     	}
     	
     	return super.onOptionsItemSelected(item);
