@@ -22,4 +22,11 @@
         android:title="Use a Notification"
         android:defaultValue="true"
         android:summary="Check if you want a status bar icon at lunchtime of uncheck for a full-screen notice."/>
+	<RingtonePreference 
+	    android:key="alarm_ringtone"
+	    android:title="Alarm Ringtone"
+	    android:summary="Indicate the ringtone to play when it is lunchtime"
+	    android:showSilent="true"
+	    android:dependency="alarm" />
+
 </PreferenceScreen>
