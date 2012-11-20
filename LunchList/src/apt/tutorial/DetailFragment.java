@@ -32,6 +32,7 @@ public class DetailFragment extends Fragment {
 	private EditText notes;
 	private EditText feed;
 	private TextView location;
+	private EditText phone;
 	private RestaurantHelper helper;
 	private Restaurant current;
 	private String addresses[] = { "Golden", "Boulder", "Denver", "Arvada", "Colorado"};
@@ -95,6 +96,7 @@ public class DetailFragment extends Fragment {
         notes = (EditText) getView().findViewById(R.id.notes);
         feed = (EditText) getView().findViewById(R.id.feed);
         location = (TextView) getView().findViewById(R.id.location);
+        phone = (EditText) getView().findViewById(R.id.phone);
 	}
 	
 	private void load() {
@@ -117,6 +119,7 @@ public class DetailFragment extends Fragment {
 		latitude = getHelper().getLatitude(c);
 		longitude = getHelper().getLongitude(c);
 		location.setText(String.valueOf(latitude) + ", " + String.valueOf(longitude));
+		phone.setText(getHelper().getPhone(c));
 		c.close();
 	}
 	
@@ -130,9 +133,9 @@ public class DetailFragment extends Fragment {
 	    	current.setNotes(notes.getText().toString()); 
 	    	
 	    	if (restaurantId == null) {
-	    		getHelper().insert(name.getText().toString(), address.getText().toString(), current.getType(), notes.getText().toString(), feed.getText().toString());
+	    		getHelper().insert(name.getText().toString(), address.getText().toString(), current.getType(), notes.getText().toString(), feed.getText().toString(), phone.getText().toString());
 	    	} else {
-	    		getHelper().update(restaurantId, name.getText().toString(), address.getText().toString(), current.getType(), notes.getText().toString(), feed.getText().toString());
+	    		getHelper().update(restaurantId, name.getText().toString(), address.getText().toString(), current.getType(), notes.getText().toString(), feed.getText().toString(), phone.getText().toString());
 	    	}
 		}
     }
